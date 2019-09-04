@@ -1,0 +1,94 @@
+.photo-user {
+    width: 34px;
+    border-radius: 50%;
+}
+
+.text-ajust {
+    margin: auto;
+    margin-right: 10px;
+}
+
+.nav-user {
+    float: right;
+}
+
+@media (max-width: 990px) {
+    .container-fluit-ajust {
+        margin-top: -10px;
+    }
+}
+
+@media (min-width: 991px) {
+    .user {
+        display: none;
+    }
+    .logo-nav {
+        display: none;
+    }
+    .text-nav-ternium {
+        display: none;
+    }
+}
+
+.logo-ternium {
+    border: 1px solid red !important;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.title-t-logo {
+    font-size: 14px;
+    font-weight: 800;
+    color: #34495e;
+    margin-left: 10px;
+}
+
+.sub-t-logo {
+    font-size: 14px;
+    font-weight: 800;
+    color: red;
+}
+
+.title-t-ajust {
+    margin-top: 0px;
+    margin-left: -10px;
+}
+
+.sub-t-ajust {
+    margin-top: -8px;
+    margin-left: 0px;
+}
+
+.text-nav-ternium {
+    margin-right: auto;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.ajust-minimize {
+    margin-top: -5px;
+}
+
+.ellipsis-ajust {
+    min-width: 30px;
+    width: 30px;
+    background: #f5f5f5;
+    margin-top: -5px;
+}
+
+.nav-icons {
+    color: #8e8e8e;
+    font-size: 16px !important;
+    margin-left: 15px;
+}
+
+#imgUser {
+    position: absolute !important;
+    top: 10px !important;
+    right: 29px !important;
+}
+
+.navbar .collapse .navbar-nav .nav-item .nav-link {
+    top: 8px;
+    right: 0px;
+}

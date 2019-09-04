@@ -1,0 +1,472 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="mat-panel-row">
+            <!--<button class="maximizar"> Maximizar </button>-->
+            <!-- Tabla -->
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header [collapsedHeight]="'44px'" [expandedHeight]="'44px'">
+                    <mat-panel-title>
+                        PROYECTOS
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <!-- This is a summary of the content -->
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div echarts [options]="optionsProyectos" class="hProyectos"></div>
+
+            </mat-expansion-panel>
+        </div>
+
+
+    </div>
+    <div class="col-md-6">
+        <div class="mat-panel-row">
+            <!--<button class="maximizar"> Maximizar </button>-->
+            <!-- Tabla -->
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header [collapsedHeight]="'44px'" [expandedHeight]="'44px'">
+                    <mat-panel-title>
+                        DEPARTAMENTOS
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <!-- This is a summary of the content -->
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div echarts [options]="optionsDepartamentos" class="hDepartamentos"></div>
+
+            </mat-expansion-panel>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="mat-panel-row">
+            <!--<button class="maximizar"> Maximizar </button>-->
+            <!-- Tabla -->
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header [collapsedHeight]="'44px'" [expandedHeight]="'44px'">
+                    <mat-panel-title>
+                        GRID
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <!-- This is a summary of the content -->
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead style="border-top: 1px solid #d8d8d8;">
+                            <tr style="background-color :#ff9900">
+                                <th style="color:#FFFFFF" *ngFor="let cell of tableData1.headerRow">{{ cell }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of tableData1.dataRows">
+                                <td style="width: 40%;">{{row[0]}}</td>
+                                <td style="width: 20%;">{{row[1]}}</td>
+                                <td style="width: 20%;">{{row[2]}}</td>
+                                <td style="width: 20%;" class="text-primary">{{row[3]}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button mat-raised-button class="btn btn-primary">Primary</button>
+
+                </div>
+
+            </mat-expansion-panel>
+        </div>
+
+        <div class="mat-panel-row">
+            <!-- Formulario -->
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header [collapsedHeight]="'44px'" [expandedHeight]="'44px'">
+                    <mat-panel-title>
+                        Form Elements
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <!-- This is a summary of the content -->
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <form method="get" action="/" class="form-horizontal">
+                    <!-- Input Bootstrap Control -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Bootstrap 4 Style</strong>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Nombre</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Apellido Paterno</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Apellido Materno</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Inputs Controls Ternium -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Ternium Style</strong>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Nombre</label>
+                                <input type="text" class="form-control-ternium" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Apellido Paterno</label>
+                                <input type="text" class="form-control-ternium" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Apellido Materno</label>
+                                <input type="text" class="form-control-ternium" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Datepicker Controls -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="">Datepiker Mat-Date</label>
+                            <input class="form-control-ternium" [matDatepicker]="picker" placeholder="Choose a date" (click)="picker.open()">
+                            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Datepiker Owl-Date</label>
+
+
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Timepiker</label>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Checkbox Controls -->
+                    <div class="row">
+                        <div class="col-md-12"> <label class="col-form-label">Checkboxes Elements</label></div>
+                        <div class="col-md-4 checkbox-radios">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="checkbox" value=""> First Checkbox
+                                  <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 checkbox-radios">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value=""> Second Checkbox
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                  </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 checkbox-radios">
+                            <label class="col-form-label">Inline &nbsp;</label>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" value=""> a
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                    </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" value=""> b
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                    </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" value=""> c
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12"> <label class="col-form-label">Radios Elements</label></div>
+                        <div class="col-md-4 checkbox-radios">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1" checked="true"> Radio is on
+                                        <span class="circle">
+                                          <span class="check"></span>
+                                        </span>
+                                      </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 checkbox-radios">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" value="option1"> Radio is off
+                                        <span class="circle">
+                                          <span class="check"></span>
+                                        </span>
+                                      </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 checkbox-radios">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="exampleRadiosDisable" value="option1"checked="true" disabled > Disabled Radio is on
+                                        <span class="circle">
+                                          <span class="check"></span>
+                                        </span>
+                                      </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </mat-expansion-panel>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-accent-info">
+            <div class="card-body">
+                <h4 class="card-title">DEMO MONITOR DE JOBS ESTATUS</h4>
+                <div class="mt-4">
+                    <div echarts [options]="optionsDemo" class="hDemo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-columns">
+            <div class="card">
+                <img src="https://mott.pe/noticias/wp-content/uploads/2019/03/los-50-paisajes-maravillosos-del-mundo-para-tomar-fotos.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title that wraps to a new line</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 card-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer class="blockquote-footer">
+                        <small class="text-muted">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card">
+                <img src="https://mott.pe/noticias/wp-content/uploads/2019/03/los-50-paisajes-maravillosos-del-mundo-para-tomar-fotos.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card bg-primary text-white text-center p-3">
+                <blockquote class="blockquote mb-0">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                    <footer class="blockquote-footer text-white">
+                        <small>
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://mott.pe/noticias/wp-content/uploads/2019/03/los-50-paisajes-maravillosos-del-mundo-para-tomar-fotos.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="card p-3 text-right">
+                <blockquote class="blockquote mb-0">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer class="blockquote-footer">
+                        <small class="text-muted">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </small>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-chart" data-count="7">
+            <div class="card-header card-header-info" data-header-animation="true" style="width: 321px; left: 6px;">
+                <div class="ct-chart" id="websiteViewsChart">
+                    <div echarts [options]="options" class="demo-chart"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-actions">
+                    <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                <i class="material-icons">build</i> Fix Header!
+              </button>
+                    <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Refresh">
+                <i class="material-icons">refresh</i>
+              </button>
+                    <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Change Date">
+                <i class="material-icons">edit</i>
+              </button>
+                </div>
+                <h4 class="card-title">Completed Tasks</h4>
+                <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-chart" data-count="7">
+            <div class="card-header card-header-info" data-header-animation="true" style="width: 321px; left: 6px;">
+                <div class="ct-chart" id="websiteViewsChart">
+                    <div echarts [options]="options" class="demo-chart"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-actions">
+                    <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                    <i class="material-icons">build</i> Fix Header!
+                  </button>
+                    <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Refresh">
+                    <i class="material-icons">refresh</i>
+                  </button>
+                    <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Change Date">
+                    <i class="material-icons">edit</i>
+                  </button>
+                </div>
+                <h4 class="card-title">Completed Tasks</h4>
+                <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-chart" data-count="7">
+            <div class="card-header card-header-info" data-header-animation="true" style="width: 321px; left: 6px;">
+                <div class="ct-chart" id="websiteViewsChart">
+                    <div echarts [options]="options" class="demo-chart"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-actions">
+                    <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                    <i class="material-icons">build</i> Fix Header!
+                  </button>
+                    <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Refresh">
+                    <i class="material-icons">refresh</i>
+                  </button>
+                    <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="Change Date">
+                    <i class="material-icons">edit</i>
+                  </button>
+                </div>
+                <h4 class="card-title">Completed Tasks</h4>
+                <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="lw-container lw-container_md">
+            <div class="lw-item lw-item_bg_image lw-item_white lw-visible" style="background-image: url('https://niceverynice.com/demo/little-widgets/img/bg-1.jpg')">
+                <div class="lw-wrap lw-p-sm lw-bb" style="border-bottom: 1px solid #7b7b7b;">
+                    <div class="lw-panel lw-panel_sm lw-panel_center">
+                        <div class="lw-preview">
+                            <img class="lw-pic" src="https://niceverynice.com/demo/little-widgets/img/brand.png"></div>
+                        <div class="lw-group">
+                            <div class="lw-title">Exclusive offer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lw-wrap lw-p">
+                    <div class="lw-center">
+                        <div class="lw-title">Get a free tour to Island</div>
+                        <div class="lw-content lw-mb-md">If you are looking for a new way to promote your business that won’t cost you more money.</div>
+                        <form class="lw-form" action="#">
+                            <div class="lw-field">
+                                <input class="lw-input" type="email" placeholder="Enter your email" required="" style="color: black;">
+                            </div>
+                            <button class="lw-btn bg-danger">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="lw-foot lw-foot_flex" style="border-top: 1px solid #7b7b7b;">
+                    <button class="lw-btn" data-lw-close="">Maybe Later</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+
+<div class="row">
+    &nbsp;&nbsp;&nbsp;&nbsp;<br>
+</div>

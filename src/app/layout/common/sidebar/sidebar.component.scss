@@ -1,0 +1,45 @@
+.logo-ternium {
+    border: 1px solid white !important;
+    width: 38px !important;
+    height: 41px !important;
+}
+
+.title-t-logo {
+    font-size: 14px;
+    font-weight: 800;
+    color: #34495e;
+    margin-left: 10px;
+}
+
+.sub-t-logo {
+    font-size: 14px;
+    font-weight: 800;
+    color: red;
+}
+
+.title-t-ajust {
+    margin-top: -4px;
+    margin-left: -10px;
+}
+
+.sub-t-ajust {
+    margin-top: -15px;
+    margin-left: 0px;
+}
+
+@media (max-width: 990px) {
+    .logo {
+        display: none;
+    }
+}
+
+@media (min-width: 991px) {
+    .user {
+        display: none;
+    }
+}
+
+.href-class {
+    font-size: 34px;
+    color: #b9b9b9;
+}
