@@ -4,6 +4,7 @@ import { RecursosPipe } from './recursos.pipe';
 import { JsonRowPipe } from './json-row.pipe';
 import { JsonHeadPipe } from './json-head.pipe';
 import { NumeroPositivoNegativoPipe } from './numero-positivo-negativo.pipe';
+import { GuidPipe } from './guid/guid.pipe';
 
 @NgModule({
   imports: [],
@@ -12,7 +13,8 @@ import { NumeroPositivoNegativoPipe } from './numero-positivo-negativo.pipe';
     RecursosPipe,
     JsonRowPipe,
     JsonHeadPipe,
-    NumeroPositivoNegativoPipe
+    NumeroPositivoNegativoPipe,
+    GuidPipe
   ],
   exports: [
     ImagenPipe,

@@ -1,0 +1,306 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>CARGA RECORRIDAS</mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="stepperChange($event)">
+                        <mat-step #step1 [stepControl]="cargarFormGroup">
+                            <form [formGroup]="cargarFormGroup">
+                                <ng-template matStepLabel>Datos Generales (Detección)</ng-template>
+                                <div class="d-flex flex-row row">
+                                    <div class="d-flex flex-column col-4 p-2">
+                                        <label>Fecha</label>
+                                        <div class="d-flex">
+                                            <input #inputDate [id]="'inputDate'" name="inputDate"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                placeholder="Fecha" formControlName="inputDate" [matDatepicker]="picker"
+                                                readonly>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputDate').invalid && (getControl('inputDate').dirty || getControl('inputDate').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputDate', cargarFormGroup )}}
+                                            <!-- <div *ngIf="getControl('inputDate').errors.required">
+                                                Name is required.
+                                            </div>
+                                            <div *ngIf="getControl('inputDate').errors.minlength">
+                                                Name cannot be more than 30 characters long.
+                                            </div>
+                                            <div *ngIf="getControl('inputDate').errors.minlength">
+                                                Name must be at least 2 characters long.
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column col-4 p-2">
+                                        <label>Hora Inicio</label>
+                                        <div class="ngx-material-timepicker-container">
+                                            <div class="ngx-material-timepicker-form-file-input">
+                                                <input #inputStartTime [id]="'inputStartTime'" name="inputStartTime"
+                                                    attr.data-identifier="{{'guidRaw' | guid}}"
+                                                    placeholder="Hora Inicio" formControlName="inputStartTime"
+                                                    class="form-control-ternium" [ngxTimepicker]="timePickInicio"
+                                                    [format]="12" readonly>
+                                                <div *ngIf="submitted || getControl('inputStartTime').invalid && (getControl('inputStartTime').dirty || getControl('inputStartTime').touched)"
+                                                    class="invalid-feedback d-block">
+                                                    {{getError('inputStartTime', cargarFormGroup )}}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <ngx-material-timepicker-toggle [for]="timePickInicio"
+                                                    class="ngx-material-timepicker-toggle">
+                                                </ngx-material-timepicker-toggle>
+                                            </div>
+                                            <ngx-material-timepicker #timePickInicio [enableKeyboardInput]="true">
+                                            </ngx-material-timepicker>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column col-4 p-2">
+                                        <label>Hora Fin</label>
+                                        <div class="ngx-material-timepicker-container">
+                                            <div class="ngx-material-timepicker-form-file-input">
+                                                <input #inputEndTime [id]="inputEndTime" name="inputEndTime"
+                                                    class="form-control-ternium"
+                                                    attr.data-identifier="{{'guidRaw' | guid}}" placeholder="Hora Fin"
+                                                    formControlName="inputEndTime" [ngxTimepicker]="timePickFin"
+                                                    [format]="12" readonly>
+                                                <div *ngIf="submitted || getControl('inputEndTime').invalid && (getControl('inputEndTime').dirty || getControl('inputEndTime').touched)"
+                                                    class="invalid-feedback d-block">
+                                                    {{getError('inputEndTime', cargarFormGroup )}}
+                                                </div>
+                                            </div>
+                                            <div class="ngx-material-timepicker-toggle-container">
+                                                <ngx-material-timepicker-toggle [for]="timePickFin"
+                                                    class="ngx-material-timepicker-toggle">
+                                                </ngx-material-timepicker-toggle>
+                                            </div>
+                                            <ngx-material-timepicker #timePickFin [enableKeyboardInput]="true">
+                                            </ngx-material-timepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row row">
+                                    <div class="d-flex flex-column col-6 p-2">
+                                        <label>Turno</label>
+                                        <div class="d-flex">
+                                            <select #inputTurn [id]="'inputTurn'" name="inputTurn"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                formControlName="inputTurn">
+                                                <option value="">Seleccione</option>
+                                                <option *ngFor="let item of tunoItems" [value]="item.turno">
+                                                    {{item.turno}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputTurn').invalid && (getControl('inputTurn').dirty || getControl('inputTurn').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputTurn', cargarFormGroup )}}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column col-6 p-2">
+                                        <label>Macro Area</label>
+                                        <div class="d-flex">
+                                            <select #macroArea [id]="'macroArea'" name="inputFrameArea"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                formControlName="inputFrameArea"
+                                                (change)="macroAreaChange($event, macroArea.value)">
+                                                <option value="">Seleccione</option>
+                                                <option *ngFor="let item of macroAreaItems"
+                                                    [value]="item.macroArea_key">
+                                                    {{item.descripcionMacroArea}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputFrameArea').invalid && (getControl('inputFrameArea').dirty || getControl('inputFrameArea').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputFrameArea', cargarFormGroup )}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row row">
+                                    <div class="d-flex flex-column col-6 p-2">
+                                        <label>Area</label>
+                                        <div class="d-flex">
+                                            <select #inputArea [id]="'inputArea'" name="inputArea"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                formControlName="inputArea"
+                                                (change)="areaChange($event, inputArea.value)" disabled>
+                                                <ng-container *ngIf="!inputArea.disabled">
+                                                    <option value="">Seleccione</option>
+                                                    <option *ngFor="let item of areaItems" [value]="item.area_key">
+                                                        {{item.descripcionArea}}
+                                                    </option>
+                                                </ng-container>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputArea').invalid && (getControl('inputArea').dirty || getControl('inputArea').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputArea', cargarFormGroup )}}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column col-6 p-2">
+                                        <label>Cliente</label>
+                                        <div class="d-flex">
+                                            <select #inputClient [id]="'inputClient'" name="inputClient"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                formControlName="inputClient">
+                                                <option value="">Seleccione</option>
+                                                <option *ngFor="let item of clienteItems" [value]="item.d_cliente">
+                                                    {{item.d_cliente}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputClient').invalid && (getControl('inputClient').dirty || getControl('inputClient').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputClient', cargarFormGroup )}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row row">
+                                    <div class="d-flex flex-column col-6 p-2">
+                                        <label>Listas</label>
+                                        <div class="d-flex">
+                                            <select #inputList [id]="'inputList'" name="inputList"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                formControlName="inputList" disabled>
+                                                <ng-container *ngIf="!inputList.disabled">
+                                                    <option value="">Seleccione</option>
+                                                    <option *ngFor="let item of listItems" [value]="item.numero_key">
+                                                        {{item.d_nombre}}
+                                                    </option>
+                                                </ng-container>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputList').invalid && (getControl('inputList').dirty || getControl('inputList').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputList', cargarFormGroup )}}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column col-6 p-2">
+                                        <label>Verificador</label>
+                                        <div class="d-flex">
+                                            <select #inputChecker [id]="'inputChecker'" name="inputChecker"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                formControlName="inputChecker" disabled>
+                                                <ng-container *ngIf="!inputChecker.disabled">
+                                                    <option value="">Seleccione</option>
+                                                    <option *ngFor="let item of checkerItems"
+                                                        [value]="item.verificador_key">
+                                                        {{item.descripcionVerificador}}
+                                                    </option>
+                                                </ng-container>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputChecker').invalid && (getControl('inputChecker').dirty || getControl('inputChecker').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputChecker', cargarFormGroup )}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row-reverse row">
+                                    <button mat-flat-button matStepperNext color="primary"
+                                        (click)="stepperSubmmit(['inputDate', 'inputStartTime', 'inputEndTime', 'inputTurn', 'inputFrameArea', 'inputArea', 'inputClient', 'inputList', 'inputChecker'])">Siguiente</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step>
+                            <ng-template matStepLabel>Datos Generales</ng-template>
+                            <div class="d-flex flex-row row">
+                                <div class="d-flex flex-column col p-2">
+                                    <div class="table-responsive">
+                                        <table id="tblAlertas" cellpadding="1" cellspacing="1"
+                                            class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th style="width: 5%;">#</th> -->
+                                                    <th>Linea</th>
+                                                    <th>Tipo Recorrida</th>
+                                                    <th>Cantidad Hallazgos/Eventos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- <form [formGroup]="cargarDTFormGroup"> -->
+                                                <!-- <div formArrayName="itemsDTFG" -->
+                                                <!-- *ngFor="let itemDT of cargarDTFormGroup.get('itemsDTFG').controls; let i = index;"> -->
+                                                <!-- <div [formGroupName]="i"> -->
+                                                <tr *ngFor="let element of cargarDTA; let i = index;">
+
+                                                    <!-- <td style="width: 5%;">
+                                                        <i class="fa fa-id-card"
+                                                            style="font-size: 20px; cursor: pointer;"
+                                                            data-toggle="modal" data-target="#mDatosContacto"></i>
+                                                    </td> -->
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            {{element.columnLine}}
+                                                            <div class="checkbox-radios">
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            (change)="dGCheck(element, i, $event, $event.target.checked)"
+                                                                            attr.data-identifier="{{'guidRaw' | guid}}">
+                                                                        <span class="form-check-sign">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-row row">
+                                                            <div class="d-flex flex-column col-12">
+                                                                <select #tipoRecorridas [id]="'tipoRecorridas'"
+                                                                    name="tipoRecorridas"
+                                                                    attr.data-identifier="{{'guidRaw' | guid}}"
+                                                                    class="form-control-ternium"
+                                                                    (change)="dgChange(element, i, $event, $event.target.value)">
+                                                                    <option value="">Seleccione</option>
+                                                                    <option *ngFor="let item of tiposRecorridaItems"
+                                                                        [value]="item.tipoRecorrida_key">
+                                                                        {{item.d_tiporecorrida}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-row row">
+                                                            <div class="d-flex flex-column col-12">
+                                                                <input name="lastName"
+                                                                    attr.data-identifier="{{'guidRaw' | guid}}"
+                                                                    class="form-control-ternium"
+                                                                    placeholder="Cantidad Hallazgos/Eventos"
+                                                                    [type]="'number'"
+                                                                    (change)="dgKeyChange(element, i, $event, $event.target.value)">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- </div> -->
+                                                <!-- </div> -->
+                                                <!-- </form> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row row">
+                                <div class="d-flex flex-column col-6">
+                                    <button mat-flat-button matStepperPrevious color="primary">Atrás</button>
+                                </div>
+                                <div class="d-flex flex-column col-6">
+                                    <button mat-flat-button color="primary" (click)="save()">Terminar</button>
+                                </div>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

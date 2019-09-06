@@ -31,10 +31,14 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 @NgModule({
@@ -74,7 +78,11 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule,
+    NgxMaterialTimepickerModule,
+    MatMomentDateModule
   ]
 })
 export class MaterialModule { }

@@ -31,7 +31,7 @@ export const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     pbDirection: 'ltr',
     pbThickness: 5,
     hasProgressBar: true,
-    text: 'PROYECTO BASE',
+    text: 'RECORRIDAS',
     textColor: '#000000',
     textPosition: 'center-center'
   };

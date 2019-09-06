@@ -51,6 +51,7 @@
                             "node_modules/bootstrap-notify/bootstrap-notify.js",
                             "node_modules/nouislider/distribute/nouislider.min.js",
                             "node_modules/bootstrap-select/dist/js/bootstrap-select.js",
+                            "node_modules/datatables.net/js/jquery.dataTables.js",
                             "node_modules/datatables/media/js/jquery.dataTables.js",
                             "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js",
                             "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
@@ -66,10 +67,12 @@
                     },
                     "configurations": {
                         "production": {
-                            "fileReplacements": [{
-                                "replace": "src/environments/environment.ts",
-                                "with": "src/environments/environment.prod.ts"
-                            }],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
@@ -79,11 +82,16 @@
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "budgets": [{
-                                "type": "initial",
-                                "maximumWarning": "2mb",
-                                "maximumError": "5mb"
-                            }]
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        },
+                        "es5": {
+                            "tsConfig": "./tsconfig.es5.json"
                         }
                     }
                 },
@@ -95,6 +103,9 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "BASE-TEMPLATE-DOS:build:production"
+                        },
+                        "es5": {
+                            "browserTarget": "BASE-TEMPLATE-DOS:build:es5"
                         }
                     }
                 },

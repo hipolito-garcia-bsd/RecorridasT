@@ -1,0 +1,30 @@
+::ng-deep .mat-option {
+  height: 2.5em !important;
+}
+
+::ng-deep .mat-select-panel {
+  max-height: 15em !important;
+  padding-top: 0.5em !important;
+}
+
+.ngx-material-timepicker-container {
+  display: flex !important;
+  width: 100%;
+}
+
+.ngx-material-timepicker-form-file-input {
+  width: 85% !important;
+}
+
+//   .ngx-material-timepicker-toggle-container {
+//     display: flex !important
+//   }
+
+::ng-deep .ngx-material-timepicker-toggle {
+  display: flex !important;
+  height: 2.5em;
+}
+
+.checkbox-radios {
+  margin-left: auto;
+}

@@ -5,7 +5,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 
 const routes: Routes = [
   { path: '',
-    redirectTo: '/home',
+    redirectTo: '/cargar',
     pathMatch: 'full'
   }
 ];

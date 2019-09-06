@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import 'datatables.net';
+import 'datatables.net-bs4';
 
-declare var $: any;
+import * as $ from 'jquery';
+// declare let $: any;
 // Increment for index array
 
 @Injectable({
@@ -11,36 +14,42 @@ export class ToolsService {
   constructor() { }
 
   convertirDataTable(selector: string) {
-    $(selector).dataTable().fnDestroy();
+    $(selector).DataTable().destroy();
     setTimeout(() => {
-      $(selector).dataTable( {
-        lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, 'All'] ],
+      $(selector).DataTable({
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
         language: {
-            sProcessing:     'Procesando...',
-            sLengthMenu:     'Mostrar _MENU_ registros',
-            sZeroRecords:    'No se encontraron resultados',
-            sEmptyTable:     'Ningún dato disponible en esta tabla',
-            sInfo:           '_START_ a _END_ de _TOTAL_ registro(s)',
-            sInfoEmpty:      '0 a 0 de 0 registros',
-            sInfoFiltered:   '(filtrado de un total de _MAX_ registros)',
-            sInfoPostFix:    '',
-            sSearch:         'Buscar:',
-            sUrl:            '',
-            sInfoThousands:  ',',
-            sLoadingRecords: 'Cargando...',
-            oPaginate: {
-                sFirst:    'Primero',
-                sLast:     'Último',
-                sNext:     'Siguiente',
-                sPrevious: 'Anterior'
-            },
-            oAria: {
-                sSortAscending:  ': Activar para ordenar la columna de manera ascendente',
-                sSortDescending: ': Activar para ordenar la columna de manera descendente'
-            }
+          processing: 'Procesando...',
+          lengthMenu: 'Mostrar _MENU_ registros',
+          zeroRecords: 'No se encontraron resultados',
+          emptyTable: 'Ningún dato disponible en esta tabla',
+          info: '_START_ a _END_ de _TOTAL_ registro(s)',
+          infoEmpty: '0 a 0 de 0 registros',
+          infoFiltered: '(filtrado de un total de _MAX_ registros)',
+          infoPostFix: '',
+          search: 'Buscar:',
+          url: '',
+          thousands: ',',
+          loadingRecords: 'Cargando...',
+          paginate: {
+            first: 'Primero',
+            last: 'Último',
+            next: 'Siguiente',
+            previous: 'Anterior'
+          },
+          aria: {
+            sortAscending: ': Activar para ordenar la columna de manera ascendente',
+            sortDescending: ': Activar para ordenar la columna de manera descendente'
+          }
         }
       });
     }, 1000);
+  }
+
+  resetDataTable(selector: string) {
+    const dt = $(selector).DataTable();
+    dt.clear();
+    dt.destroy();
   }
 
   // Recupero el valor de los meses
@@ -67,36 +76,74 @@ export class ToolsService {
   }
 
   // Pinta los valores y el formato para el tooltip
-  sparkline(elemento: string, arreglo: any, arregloMes: any) {
-    // Array Mes - Valor
-    const MesVal: any = [];
+  // sparkline(elemento: string, arreglo: any, arregloMes: any) {
+  //   // Array Mes - Valor
+  //   const MesVal: any = [];
 
-    for (let i = 0; i < arregloMes.length; i++) {
-      MesVal.push(arregloMes[i] + '-' + arreglo[i]);
-    }
+  //   for (let i = 0; i < arregloMes.length; i++) {
+  //     MesVal.push(arregloMes[i] + '-' + arreglo[i]);
+  //   }
 
-    $(elemento).sparkline(arreglo, {
-      type: 'line',
-      width: '95%',
-      height: '25',
-      fillColor: false,
-      lineColor: 'red',
-      tooltipFormat: '{{offset:slice}}',
-      tooltipValueLookups: {
-        slice: MesVal
-      }
-    });
-  }
+  //   $(elemento).sparkline(arreglo, {
+  //     type: 'line',
+  //     width: '95%',
+  //     height: '25',
+  //     fillColor: false,
+  //     lineColor: 'red',
+  //     tooltipFormat: '{{offset:slice}}',
+  //     tooltipValueLookups: {
+  //       slice: MesVal
+  //     }
+  //   });
+  // }
 
   openWin(url, title, wi, he) {
 
     const w = ((screen.availWidth - 100));
-    const h = screen.availHeight - 200;
+    const h = screen.availHeight - 200;
     const iLeft = (screen.availWidth - w) / 2;
     const iTop = (screen.availHeight - h) / 2;
     // tslint:disable-next-line: max-line-length
-    const oWin = window.open(url, '' , 'left=' + iLeft + ',top=' + iTop + ',height=' + h + ',width=' + w + ',menubar=0,toolbar=0,location=0,status=0,scrollbars=0,resizable=1', true);
+    const oWin = window.open(url, '', 'left=' + iLeft + ',top=' + iTop + ',height=' + h + ',width=' + w + ',menubar=0,toolbar=0,location=0,status=0,scrollbars=0,resizable=1', true);
     oWin.focus();
 
+  }
+
+  deepCopy(obj: any) {
+    let copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null === obj || 'object' !== typeof obj) {
+      return obj;
+    }
+
+    // Handle Date
+    if (obj instanceof Date) {
+      copy = new Date();
+      copy.setTime(obj.getTime());
+      return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+      copy = [];
+      for (let i = 0, len = obj.length; i < len; i++) {
+        copy[i] = this.deepCopy(obj[i]);
+      }
+      return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+      copy = {};
+      for (const attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+          copy[attr] = this.deepCopy(obj[attr]);
+        }
+      }
+      return copy;
+    }
+
+    throw new Error('Unable to copy obj! Its type isn t supported.');
   }
 }
