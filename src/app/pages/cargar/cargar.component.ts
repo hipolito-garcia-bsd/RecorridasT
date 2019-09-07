@@ -26,6 +26,8 @@ import {
 })
 export class CargarComponent implements OnInit, OnDestroy, AfterViewInit {
   //#region DECLARAR VARIABLES
+  // FLAGS
+  submitted = false;
   // FORM GROUPS
   public cargarFormGroup: FormGroup;
   public cargarDTFormGroup: FormGroup;
@@ -307,6 +309,8 @@ export class CargarComponent implements OnInit, OnDestroy, AfterViewInit {
         i--;
       }
     }
+
+    this.submitted = true;
 
     if (dataDT.length === 0) {
       Swal.fire({

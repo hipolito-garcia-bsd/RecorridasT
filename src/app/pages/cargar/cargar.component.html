@@ -17,6 +17,7 @@
                                         <div class="d-flex">
                                             <input #inputDate [id]="'inputDate'" name="inputDate"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputDate').errors }"
                                                 placeholder="Fecha" formControlName="inputDate" [matDatepicker]="picker"
                                                 readonly>
                                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -43,8 +44,9 @@
                                                 <input #inputStartTime [id]="'inputStartTime'" name="inputStartTime"
                                                     attr.data-identifier="{{'guidRaw' | guid}}"
                                                     placeholder="Hora Inicio" formControlName="inputStartTime"
-                                                    class="form-control-ternium" [ngxTimepicker]="timePickInicio"
-                                                    [format]="12" readonly>
+                                                    class="form-control-ternium"
+                                                    [ngClass]="{ 'is-invalid': submitted && getControl('inputStartTime').errors }"
+                                                    [ngxTimepicker]="timePickInicio" [format]="12" readonly>
                                                 <div *ngIf="submitted || getControl('inputStartTime').invalid && (getControl('inputStartTime').dirty || getControl('inputStartTime').touched)"
                                                     class="invalid-feedback d-block">
                                                     {{getError('inputStartTime', cargarFormGroup )}}
@@ -65,6 +67,7 @@
                                             <div class="ngx-material-timepicker-form-file-input">
                                                 <input #inputEndTime [id]="inputEndTime" name="inputEndTime"
                                                     class="form-control-ternium"
+                                                    [ngClass]="{ 'is-invalid': submitted && getControl('inputEndTime').errors }"
                                                     attr.data-identifier="{{'guidRaw' | guid}}" placeholder="Hora Fin"
                                                     formControlName="inputEndTime" [ngxTimepicker]="timePickFin"
                                                     [format]="12" readonly>
@@ -89,6 +92,7 @@
                                         <div class="d-flex">
                                             <select #inputTurn [id]="'inputTurn'" name="inputTurn"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputTurn').errors }"
                                                 formControlName="inputTurn">
                                                 <option value="">Seleccione</option>
                                                 <option *ngFor="let item of tunoItems" [value]="item.turno">
@@ -106,6 +110,7 @@
                                         <div class="d-flex">
                                             <select #macroArea [id]="'macroArea'" name="inputFrameArea"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputFrameArea').errors }"
                                                 formControlName="inputFrameArea"
                                                 (change)="macroAreaChange($event, macroArea.value)">
                                                 <option value="">Seleccione</option>
@@ -127,6 +132,7 @@
                                         <div class="d-flex">
                                             <select #inputArea [id]="'inputArea'" name="inputArea"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputArea').errors }"
                                                 formControlName="inputArea"
                                                 (change)="areaChange($event, inputArea.value)" disabled>
                                                 <ng-container *ngIf="!inputArea.disabled">
@@ -147,6 +153,7 @@
                                         <div class="d-flex">
                                             <select #inputClient [id]="'inputClient'" name="inputClient"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputClient').errors }"
                                                 formControlName="inputClient">
                                                 <option value="">Seleccione</option>
                                                 <option *ngFor="let item of clienteItems" [value]="item.d_cliente">
@@ -166,6 +173,7 @@
                                         <div class="d-flex">
                                             <select #inputList [id]="'inputList'" name="inputList"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputList').errors }"
                                                 formControlName="inputList" disabled>
                                                 <ng-container *ngIf="!inputList.disabled">
                                                     <option value="">Seleccione</option>
@@ -185,6 +193,7 @@
                                         <div class="d-flex">
                                             <select #inputChecker [id]="'inputChecker'" name="inputChecker"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputChecker').errors }"
                                                 formControlName="inputChecker" disabled>
                                                 <ng-container *ngIf="!inputChecker.disabled">
                                                     <option value="">Seleccione</option>
