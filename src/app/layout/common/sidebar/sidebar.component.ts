@@ -23,22 +23,30 @@ export interface ChildrenItems {
 
 // Menu Items
 export const ROUTES: RouteInfo[] = [
-    //     {
-    //     path: '/home',
-    //     title: 'Dashboard',
-    //     type: 'link',
-    //     icontype: 'dashboard'
-    // },
     {
-        path: '',
-        title: 'RECORRIDAS',
-        type: 'sub',
-        icontype: 'apps',
-        collapse: 'rcrds',
-        children: [
-            { path: 'cargar', title: 'Cargar', ab: 'C' }
-        ]
-    }];
+        path: '/cargar',
+        title: 'Cargar',
+        type: 'link',
+        icontype: 'apps'
+    },
+    {
+        path: '/anular',
+        title: 'Anular',
+        type: 'link',
+        icontype: 'apps'
+    },
+    // {
+    //     path: '',
+    //     title: 'RECORRIDAS',
+    //     type: 'sub',
+    //     icontype: 'apps',
+    //     collapse: 'recorridas',
+    //     children: [
+    //         { path: 'cargar', title: 'Cargar', ab: 'C' },
+    //         { path: 'anular', title: 'Anular', ab: 'A' }
+    //     ]
+    // }
+];
 
 @Component({
     selector: 'app-sidebar',

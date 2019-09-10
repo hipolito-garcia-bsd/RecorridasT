@@ -26,6 +26,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { APP_BASE_HREF } from '@angular/common';
+import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 
 export function getBaseHref(): string {
   return window.location.pathname;
@@ -61,7 +62,8 @@ export function getBaseHref(): string {
     },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-    { provide: APP_BASE_HREF, useFactory: getBaseHref}
+    { provide: APP_BASE_HREF, useFactory: getBaseHref },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

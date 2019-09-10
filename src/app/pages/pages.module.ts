@@ -9,12 +9,14 @@ import { CargarComponent } from './cargar/cargar.component';
 import { GuidPipe } from '../shared/pipes/guid/guid.pipe';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { AnularComponent } from './anular/anular.component';
 
 @NgModule({
   declarations: [
     InicioComponent,
     CargarComponent,
-    GuidPipe
+    GuidPipe,
+    AnularComponent
   ],
   imports: [
     CommonModule,

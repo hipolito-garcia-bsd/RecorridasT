@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NavbarOnlyComponent } from './common/navbar-only/navbar-only.component';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [
     AdminCompletoComponent,
@@ -25,7 +27,8 @@ import { NavbarOnlyComponent } from './common/navbar-only/navbar-only.component'
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     AdminCompletoComponent,

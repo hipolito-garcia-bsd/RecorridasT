@@ -75,7 +75,7 @@ export class CargarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.unsubscribe();
+    this.unsubscribe(null, true);
   }
 
   ngAfterViewInit() { }

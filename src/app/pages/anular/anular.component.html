@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>ANULAR</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form [formGroup]="anularFormGroup">
+                        <div class="d-flex flex-row row">
+                            <div class="d-flex flex-column col-6 p-2">
+                                <label>Linea</label>
+                                <div class="d-flex">
+                                    <select #inputLinea [id]="'inputLinea'" name="inputLinea"
+                                        attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                        [ngClass]="{ 'is-invalid': submitted && getControl('inputLinea').errors }"
+                                        formControlName="inputLinea">
+                                        <option value="">Seleccione</option>
+                                        <ng-container *ngIf="lineaItems$ | async; let values;">
+                                            <option *ngFor="let item of values.linea.data" [value]="item.numero_key">
+                                                {{item.d_nombre}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <div *ngIf="submitted || getControl('inputLinea').invalid && (getControl('inputLinea').dirty || getControl('inputLinea').touched)"
+                                    class="invalid-feedback d-block">
+                                    {{getError('inputLinea', anularFormGroup )}}
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column col-4 p-2">
+                                <label>Fecha</label>
+                                <div class="d-flex">
+                                    <input #inputFecha [id]="'inputFecha'" name="inputFecha"
+                                        attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                        [ngClass]="{ 'is-invalid': submitted && getControl('inputFecha').errors }"
+                                        placeholder="Fecha" formControlName="inputFecha" [matDatepicker]="picker"
+                                        readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </div>
+                                <div *ngIf="submitted || getControl('inputFecha').invalid && (getControl('inputFecha').dirty || getControl('inputFecha').touched)"
+                                    class="invalid-feedback d-block">
+                                    {{getError('inputFecha', anularFormGroup )}}
+                                    <!-- <div *ngIf="getControl('inputDate').errors.required">
+                                        Name is required.
+                                    </div>
+                                    <div *ngIf="getControl('inputDate').errors.minlength">
+                                        Name cannot be more than 30 characters long.
+                                    </div>
+                                    <div *ngIf="getControl('inputDate').errors.minlength">
+                                        Name must be at least 2 characters long.
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse row">
+                            <button mat-flat-button color="primary" (click)="buscarAnular()">Buscar</button>
+                        </div>
+                    </form>
+                    <div class="d-flex flex-row row" *ngIf="cargarDTAItems">
+                        <div class="d-flex flex-column col p-2">
+                            <div class="table-responsive">
+                                <table id="tblAlertas" cellpadding="1" cellspacing="1"
+                                    class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">Turno</th>
+                                            <th>Tipo de Recorrida</th>
+                                            <th>Veirifcador</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngIf="cargarDTAItems; let values;">
+                                            <tr *ngFor="let element of values.anularTb.data; let i = index;">
+                                                <td style="width: 5%;">
+                                                    <div class="d-flex">
+                                                        <i class="material-icons" style="font-size: 20px; cursor: pointer;" (click)="agregarCausa()">
+                                                            assignment_return
+                                                        </i>
+                                                        <p class="p-0 ml-1 mr-0 mt-0 mb-0">{{element.turnokey}}</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{element.tiporecorrida}} {{element.tipoGrupoRecorrida}}
+                                                </td>
+                                                <td>
+                                                    {{element.descripcionverificador}}
+                                                </td>
+                                                <td>
+                                                    {{element.cantidadRecorridas}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
