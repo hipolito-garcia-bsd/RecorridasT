@@ -6,17 +6,18 @@ import { MaterialModule } from '../shared/material.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { CargarComponent } from './cargar/cargar.component';
 
-import { GuidPipe } from '../shared/pipes/guid/guid.pipe';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AnularComponent } from './anular/anular.component';
+import { PipesModule } from '../shared/pipes/pipes.module';
+import { AnuladasComponent } from './anuladas/anuladas.component';
 
 @NgModule({
   declarations: [
     InicioComponent,
     CargarComponent,
-    GuidPipe,
-    AnularComponent
+    AnularComponent,
+    AnuladasComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +25,8 @@ import { AnularComponent } from './anular/anular.component';
     NgxEchartsModule,
     FormsModule,
     ReactiveFormsModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    PipesModule
   ]
 })
 export class PagesModule { }

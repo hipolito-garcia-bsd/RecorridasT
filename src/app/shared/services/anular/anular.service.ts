@@ -18,7 +18,7 @@ export class AnularService {
     private errors: ErrorsService
   ) { }
 
-  httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })

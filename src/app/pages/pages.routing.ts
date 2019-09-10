@@ -1,21 +1,12 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
 
-import { InicioComponent } from './inicio/inicio.component';
 import { AdminCompletoComponent } from '../layout/admin-completo/admin-completo.component';
-import { AdminHeaderComponent } from '../layout/admin-header/admin-header.component';
 import { CargarComponent } from './cargar/cargar.component';
 import { AnularComponent } from './anular/anular.component';
+import { AnuladasComponent } from './anuladas/anuladas.component';
 
 
 export const PagesRoutes: Routes = [
-    {
-        path: 'home',
-        component: AdminCompletoComponent,
-        children: [
-            { path: '', component: InicioComponent }
-        ]
-    },
     {
         path: 'cargar',
         component: AdminCompletoComponent,
@@ -30,12 +21,12 @@ export const PagesRoutes: Routes = [
             { path: '', component: AnularComponent }
         ]
     },
-    // {
-    //     path: 'inicio',
-    //     component: AdminHeaderComponent,
-    //     children: [
-    //         { path: '', component: InicioComponent }
-    //     ]
-    // }
+    {
+        path: 'anuladas',
+        component: AdminCompletoComponent,
+        children: [
+            { path: '', component: AnuladasComponent }
+        ]
+    }
 ];
 

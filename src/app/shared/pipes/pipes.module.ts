@@ -21,7 +21,8 @@ import { GuidPipe } from './guid/guid.pipe';
     RecursosPipe,
     JsonRowPipe,
     JsonHeadPipe,
-    NumeroPositivoNegativoPipe
+    NumeroPositivoNegativoPipe,
+    GuidPipe
   ]
 })
 export class PipesModule { }

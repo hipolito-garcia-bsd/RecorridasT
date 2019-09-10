@@ -8,8 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // Imports de Material
 import { MaterialModule } from './shared/material.module';
-// VARIABLES DE AMBIENTE
-import { environment } from '../environments/environment';
 // ########################################################### //
 import { GeneralInterceptorService } from './shared/interceptors/general-interceptor.service';
 // ########################################################### //
@@ -18,7 +16,7 @@ import { PagesModule } from './pages/pages.module';
 // ########################################################### //
 import { LayoutModule } from './layout/layout.module';
 // ########################################################### //
-import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { ngxUiLoaderConfig } from './app-base-helpers';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -27,6 +25,7 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-mo
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
+import { PipesModule } from './shared/pipes/pipes.module';
 
 export function getBaseHref(): string {
   return window.location.pathname;
@@ -48,7 +47,8 @@ export function getBaseHref(): string {
     RouterModule.forChild(PagesRoutes),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     ToastrModule.forRoot(),
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    PipesModule
   ],
   providers: [
     {

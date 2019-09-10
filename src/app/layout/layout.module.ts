@@ -12,11 +12,12 @@ import { RouterModule } from '@angular/router';
 import { NavbarOnlyComponent } from './common/navbar-only/navbar-only.component';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
 
 @NgModule({
   declarations: [
     AdminCompletoComponent,
-    // AdminHeaderComponent,
+    AdminHeaderComponent,
     // AdminComponent,
     NavbarComponent,
     HeaderComponent,
@@ -32,7 +33,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   exports: [
     AdminCompletoComponent,
-    // AdminHeaderComponent,
+    AdminHeaderComponent,
     // AdminComponent,
     NavbarComponent,
     HeaderComponent,

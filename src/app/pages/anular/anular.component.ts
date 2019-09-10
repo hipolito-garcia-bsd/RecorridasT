@@ -31,9 +31,9 @@ export class AnularComponent implements OnInit, OnDestroy {
   // INPUTS DATA
   public lineaItems$: Observable<{ linea: CargarListado }>;
   // SUBSCRIPTIONS
+  private cargarDTA: Subscription; // Observable<{ anularTb: AnularDT }>;
   // DATA TABLE
   public cargarDTAItems: { anularTb: AnularDT };
-  private cargarDTA: Subscription; // Observable<{ anularTb: AnularDT }>;
   // ViewChilds
 
   constructor(
@@ -53,7 +53,7 @@ export class AnularComponent implements OnInit, OnDestroy {
     this.unsubscribe(null, true);
   }
 
-  private callEndpointsInit() {
+  private callEndpointsInit(): void {
     this.lineaItems$ = this.anularService.getListas('').pipe(
       map((linea) => {
         return { linea };
@@ -68,7 +68,7 @@ export class AnularComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getControl(path: string): AbstractControl {
+  public getControl(path: string): AbstractControl {
     return this.anularFormGroup.get(path);
   }
 
@@ -103,7 +103,7 @@ export class AnularComponent implements OnInit, OnDestroy {
     ], true);
   }
 
-  public buscarAnular() {
+  public buscarAnular(): void {
     this.submitted = true;
 
     if (!this.anularFormGroup.valid) {
@@ -113,8 +113,8 @@ export class AnularComponent implements OnInit, OnDestroy {
     this.tools.resetDataTable('#tblAlertas');
     const lineaValue = this.getControl('inputLinea').value;
     const fechaValue = moment.utc(moment(this.getControl('inputFecha').value, 'DD/MM/YYYY'));
-    const model = {};
-    this.cargarDTA = this.anularService.postBuscarAnular(model).pipe(
+    const modelBuscar = {};
+    this.cargarDTA = this.anularService.postBuscarAnular(modelBuscar).pipe(
       map((anularTb) => {
         const model: Array<AnularDT> = [];
         for (const item of anularTb.data) {
@@ -137,7 +137,7 @@ export class AnularComponent implements OnInit, OnDestroy {
     });
   }
 
-  public async agregarCausa() {
+  public async agregarCausa(): Promise<any> {
     const swalGen = Swal.mixin({
       showCancelButton: true,
       cancelButtonText: 'Cancelar',

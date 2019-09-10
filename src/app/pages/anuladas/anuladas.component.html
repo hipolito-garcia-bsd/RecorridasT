@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>ANULADAS</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form [formGroup]="anuladasFormGroup">
+                        <div class="d-flex flex-row row">
+                            <div class="d-flex flex-column col-6 p-2">
+                                <label>Linea</label>
+                                <div class="d-flex">
+                                    <select #inputLinea [id]="'inputLinea'" name="inputLinea"
+                                        attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                        [ngClass]="{ 'is-invalid': submitted && getControl('inputLinea').errors }"
+                                        formControlName="inputLinea">
+                                        <option value="">Seleccione</option>
+                                        <ng-container *ngIf="lineaItems$ | async; let values;">
+                                            <option *ngFor="let item of values.linea.data" [value]="item.numero_key">
+                                                {{item.d_nombre}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <div *ngIf="submitted || getControl('inputLinea').invalid && (getControl('inputLinea').dirty || getControl('inputLinea').touched)"
+                                    class="invalid-feedback d-block">
+                                    {{getError('inputLinea', anuladasFormGroup )}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse row">
+                            <button mat-flat-button color="primary" (click)="buscarAnuladas()">Buscar</button>
+                        </div>
+                    </form>
+                    <div class="d-flex flex-row row" *ngIf="cargarDTItems">
+                        <div class="d-flex flex-column col p-2">
+                            <div class="table-responsive">
+                                <table id="tblAlertas" cellpadding="1" cellspacing="1"
+                                    class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Turno</th>
+                                            <th>Tipo</th>
+                                            <th>Verificador</th>
+                                            <th>Causa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngIf="cargarDTItems; let values;">
+                                            <tr *ngFor="let element of values.anuladasTb.data; let i = index;">
+                                                <td>
+                                                    {{element.fecha}}
+                                                </td>
+                                                <td>
+                                                    {{element.turno}}
+                                                </td>
+                                                <td>
+                                                    {{element.tipo}}
+                                                </td>
+                                                <td>
+                                                    {{element.verificador}}
+                                                </td>
+                                                <td>
+                                                    {{element.causa}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

@@ -35,6 +35,12 @@ export const ROUTES: RouteInfo[] = [
         type: 'link',
         icontype: 'apps'
     },
+    {
+        path: '/anuladas',
+        title: 'Anuladas',
+        type: 'link',
+        icontype: 'apps'
+    },
     // {
     //     path: '',
     //     title: 'RECORRIDAS',
