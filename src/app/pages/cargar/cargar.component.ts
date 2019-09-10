@@ -319,6 +319,7 @@ export class CargarComponent implements OnInit, OnDestroy, AfterViewInit {
         text: 'Llene almenos una fila de la tabla',
         focusConfirm: true,
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#34495e'
       });
       return;
     }
@@ -333,6 +334,7 @@ export class CargarComponent implements OnInit, OnDestroy, AfterViewInit {
           title: 'Se guardo correctamente',
           focusConfirm: true,
           confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#34495e'
         });
         this.tools.resetDataTable('#tblAlertas');
         this.stepper.reset();

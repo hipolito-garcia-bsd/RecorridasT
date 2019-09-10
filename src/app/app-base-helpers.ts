@@ -1,9 +1,8 @@
-import { NgxUiLoaderConfig, POSITION } from 'ngx-ui-loader';
-import * as $ from 'jquery';
+import { NgxUiLoaderConfig } from 'ngx-ui-loader';
 
 export function fullScreenElemet() {
     // tslint:disable-next-line: only-arrow-functions deprecation
-    $('.maximizar').click( function() {
+    $('.maximizar').click( () => {
         alert('Maximizar este elemento');
         // $('').addClass('fullscreen');
     });
@@ -34,4 +33,4 @@ export const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     text: 'RECORRIDAS',
     textColor: '#000000',
     textPosition: 'center-center'
-  };
+};

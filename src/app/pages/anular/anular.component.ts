@@ -142,6 +142,7 @@ export class AnularComponent implements OnInit, OnDestroy {
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Guardar',
+      confirmButtonColor: '#34495e',
       allowOutsideClick: () => !Swal.isLoading()
     });
 

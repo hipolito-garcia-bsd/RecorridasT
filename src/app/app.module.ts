@@ -39,7 +39,6 @@ export function getBaseHref(): string {
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    RouterModule,
     BrowserAnimationsModule,
     HttpClientModule,
     PagesModule,

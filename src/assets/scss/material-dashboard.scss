@@ -14,12 +14,54 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
- @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/theming";
+@include mat-core();
 
- @import "core/variables";
- @import "core/mixins";
- @import "~bootstrap/scss/bootstrap";
- @import "core/reboot";
+@import "themes/ternum";
+
+.ternium-theme {
+  @include angular-material-theme($ternium-theme);
+}
+
+@import "core/variables";
+@import "core/mixins";
+
+$theme-colors: (
+  primary: #34495e
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+$ternium-primary: #34495e;
+
+.btn-primary {
+  @include button-variant(
+    $ternium-primary,
+    darken($ternium-primary, 7.5%),
+    darken($ternium-primary, 10%),
+    lighten($ternium-primary, 5%),
+    lighten($ternium-primary, 10%),
+    darken($ternium-primary, 30%)
+  );
+}
+
+.btn-outline-primary {
+  @include button-outline-variant(
+    $ternium-primary,
+    #222222,
+    lighten($ternium-primary, 5%),
+    $ternium-primary
+  );
+}
+
+.paginate_button a {
+  background-color: $ternium-primary !important;
+  border-color: $ternium-primary !important;
+  color: #fff !important;
+}
+
+@import "core/reboot";
 
 // Core Components
 @import "core/layout";
@@ -62,25 +104,25 @@
 @import "dashboard/misc";
 @import "dashboard/pages";
 
- // Components for PRO
- @import "dashboard/social-buttons";
- @import "dashboard/fileupload";
+// Components for PRO
+@import "dashboard/social-buttons";
+@import "dashboard/fileupload";
 
- //plugin css
- @import "plugins/plugin-nouislider";
- @import "plugins/animate";
- @import "plugins/sweetalert2";
- // @import "plugins/datatables.net";
- @import "plugins/jquery.jvectormap";
- @import "plugins/plugin-datetime-picker";
- @import "plugins/fullcalendar";
- @import "plugins/wizard-card";
- @import "plugins/chartist";
- @import "~chartist/dist/scss/chartist";
- @import "plugins/select-bootstrap";
- @import "plugins/perfect-scrollbar";
- @import "plugins/plugin-tagsinput";
+//plugin css
+@import "plugins/plugin-nouislider";
+@import "plugins/animate";
+@import "plugins/sweetalert2";
+// @import "plugins/datatables.net";
+@import "plugins/jquery.jvectormap";
+@import "plugins/plugin-datetime-picker";
+@import "plugins/fullcalendar";
+@import "plugins/wizard-card";
+@import "plugins/chartist";
+@import "~chartist/dist/scss/chartist";
+@import "plugins/select-bootstrap";
+@import "plugins/perfect-scrollbar";
+@import "plugins/plugin-tagsinput";
 
- @import '~ngx-toastr/toastr-bs4-alert';
+@import "~ngx-toastr/toastr-bs4-alert";
 
 @import "dashboard/responsive";

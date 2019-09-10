@@ -1,0 +1,107 @@
+@import "~@angular/material/theming";
+
+/* For use in src/lib/core/theming/_palette.scss */
+$ternium-primary-colors: (
+    50 : #e7e9ec,
+    100 : #c2c8cf,
+    200 : #9aa4af,
+    300 : #71808e,
+    400 : #526476,
+    500 : #34495e,
+    600 : #2f4256,
+    700 : #27394c,
+    800 : #213142,
+    900 : #152131,
+    A100 : #72adff,
+    A200 : #3f8fff,
+    A400 : #0c71ff,
+    A700 : #0065f1,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$ternium-accent-colors: (
+    50 : #fff3e0,
+    100 : #ffe0b3,
+    200 : #ffcc80,
+    300 : #feb84d,
+    400 : #fea826,
+    500 : #fe9900,
+    600 : #fe9100,
+    700 : #fe8600,
+    800 : #fe7c00,
+    900 : #fd6b00,
+    A100 : #ffffff,
+    A200 : #fff6f1,
+    A400 : #ffd5be,
+    A700 : #ffc5a4,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$ternium-warn-colors: (
+    50 : #f6e2e2,
+    100 : #e9b6b6,
+    200 : #da8585,
+    300 : #cb5454,
+    400 : #bf3030,
+    500 : #b40b0b,
+    600 : #ad0a0a,
+    700 : #a40808,
+    800 : #9c0606,
+    900 : #8c0303,
+    A100 : #ffb8b8,
+    A200 : #ff8585,
+    A400 : #ff5252,
+    A700 : #ff3939,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+$ternium-primary-palette: mat-palette($ternium-primary-colors);
+$ternium-accent-palette: mat-palette($ternium-accent-colors);
+$ternium-warn-palette: mat-palette($ternium-warn-colors);
+
+$ternium-theme: mat-light-theme($ternium-primary-palette, $ternium-accent-palette, $ternium-warn-palette);

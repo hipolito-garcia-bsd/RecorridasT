@@ -1,7 +1,5 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { fullScreenElemet } from './app-base-helpers';
-
-import * as $ from 'jquery';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
@@ -9,9 +7,16 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   title = 'BASE';
+  themes = [
+    {
+      themeClass: 'ternium-theme',
+      themeColor: '#ffa500'
+    }
+  ];
+
   constructor(private ngxService: NgxUiLoaderService) {
   }
 
@@ -20,16 +25,16 @@ export class AppComponent implements AfterViewInit {
 
     // Create an setTimeout function interval
     setTimeout(() => {
-       this.ngxService.stop();
-     }, 1000);
+      this.ngxService.stop();
+    }, 1000);
 
+    document.body.className = this.themes[0].themeClass;
   }
 
   ngAfterViewInit(): void {
     // tslint:disable-next-line: only-arrow-functions deprecation
-    $(window).bind('load resize', function() {
+    $(window).bind('load resize', () => {
       fullScreenElemet();
     });
   }
-
 }
