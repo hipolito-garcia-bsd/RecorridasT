@@ -17,8 +17,8 @@
                                         formControlName="inputLinea">
                                         <option value="">Seleccione</option>
                                         <ng-container *ngIf="lineaItems$ | async; let values;">
-                                            <option *ngFor="let item of values.linea.data" [value]="item.numero_key">
-                                                {{item.d_nombre}}
+                                            <option *ngFor="let item of values.linea.data" [value]="item.linea_key">
+                                                {{item.descripcionLinea}}
                                             </option>
                                         </ng-container>
                                     </select>
@@ -80,7 +80,7 @@
                                                     <div class="d-flex">
                                                         <i class="material-icons"
                                                             style="font-size: 20px; cursor: pointer;"
-                                                            (click)="agregarCausa()">
+                                                            (click)="agregarCausa(element)">
                                                             assignment_return
                                                         </i>
                                                         <p class="p-0 ml-1 mr-0 mt-0 mb-0">{{element.turnokey}}</p>

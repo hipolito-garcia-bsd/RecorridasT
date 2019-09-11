@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorsService } from '../errors/errors.service';
 import { Observable } from 'rxjs';
+import { ResponseGeneric } from '../../models/generic.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnuladasService {
-  private readonly uri = 'http://localhost:3500/recorrida';
+  private readonly uri = 'http://localhost:54079/api/verificaciones/recorrida';
   private readonly getBuscarAnuladasUrl = `${this.uri}/Anuladas`;
 
   constructor(
@@ -17,12 +18,18 @@ export class AnuladasService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': this.uri,
+      // 'Access-Control-Allow-Methods': 'POST, PUT, GET, OPTIONS, DELETE',
+      // 'Access-Control-Allow-Headers': 'x-requested-with',
+      // 'Access-Control-Max-Age': '3600',
+      // 'Access-Control-Allow-Credentials': 'true'
+      'Allow': 'GET, POST, OPTIONS, PUT, DELETE'
     })
   };
 
-  getBuscarAnuladas(model: any): Observable<any> {
-    const url = `${this.getBuscarAnuladasUrl}`;
-    return this.http.get<any>(url, this.httpOptions);
+  getBuscarAnuladas(linea: string): Observable<ResponseGeneric> {
+    const url = `${this.getBuscarAnuladasUrl}/${linea}`;
+    return this.http.get<ResponseGeneric>(url, this.httpOptions);
   }
 }

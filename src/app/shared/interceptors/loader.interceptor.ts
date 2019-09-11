@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 export class LoaderInterceptor implements HttpInterceptor {
-    count = 0;
+    private count = 0;
 
     constructor(
         private ngxService: NgxUiLoaderService
@@ -25,7 +25,9 @@ export class LoaderInterceptor implements HttpInterceptor {
                 error => console.log(error)
             ),
             finalize(() => {
-                this.count--;
+                if (this.count > 0) {
+                    this.count--;
+                }
                 if (this.count === 0) {
                     this.ngxService.stop();
                 }

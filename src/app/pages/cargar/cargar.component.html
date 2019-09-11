@@ -39,7 +39,22 @@
                                     </div>
                                     <div class="d-flex flex-column col-4 p-2">
                                         <label>Hora Inicio</label>
-                                        <div class="ngx-material-timepicker-container">
+                                        <div class="d-flex">
+                                            <select #inputStartTime [id]="'inputStartTime'" name="inputStartTime"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputStartTime').errors }"
+                                                formControlName="inputStartTime">
+                                                <option value="">Seleccione</option>
+                                                <option *ngFor="let item of horaItems" [value]="item.startTime">
+                                                    {{item.startTime}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputStartTime').invalid && (getControl('inputStartTime').dirty || getControl('inputStartTime').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputStartTime', cargarFormGroup )}}
+                                        </div>
+                                        <!-- <div class="ngx-material-timepicker-container">
                                             <div class="ngx-material-timepicker-form-file-input">
                                                 <input #inputStartTime [id]="'inputStartTime'" name="inputStartTime"
                                                     attr.data-identifier="{{'guidRaw' | guid}}"
@@ -59,11 +74,26 @@
                                             </div>
                                             <ngx-material-timepicker #timePickInicio [enableKeyboardInput]="true">
                                             </ngx-material-timepicker>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="d-flex flex-column col-4 p-2">
                                         <label>Hora Fin</label>
-                                        <div class="ngx-material-timepicker-container">
+                                        <div class="d-flex">
+                                            <select #inputEndTime [id]="'inputEndTime'" name="inputEndTime"
+                                                attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
+                                                [ngClass]="{ 'is-invalid': submitted && getControl('inputEndTime').errors }"
+                                                formControlName="inputEndTime">
+                                                <option value="">Seleccione</option>
+                                                <option *ngFor="let item of horaItems" [value]="item.startTime">
+                                                    {{item.startTime}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="submitted || getControl('inputEndTime').invalid && (getControl('inputEndTime').dirty || getControl('inputEndTime').touched)"
+                                            class="invalid-feedback d-block">
+                                            {{getError('inputEndTime', cargarFormGroup )}}
+                                        </div>
+                                        <!-- <div class="ngx-material-timepicker-container">
                                             <div class="ngx-material-timepicker-form-file-input">
                                                 <input #inputEndTime [id]="inputEndTime" name="inputEndTime"
                                                     class="form-control-ternium"
@@ -83,7 +113,7 @@
                                             </div>
                                             <ngx-material-timepicker #timePickFin [enableKeyboardInput]="true">
                                             </ngx-material-timepicker>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row row">
@@ -154,11 +184,13 @@
                                             <select #inputClient [id]="'inputClient'" name="inputClient"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputClient').errors }"
-                                                formControlName="inputClient">
-                                                <option value="">Seleccione</option>
-                                                <option *ngFor="let item of clienteItems" [value]="item.d_cliente">
-                                                    {{item.d_cliente}}
-                                                </option>
+                                                formControlName="inputClient" disabled>
+                                                <ng-container *ngIf="!inputList.disabled">
+                                                    <option value="" selected="selected">Seleccione</option>
+                                                    <option *ngFor="let item of clienteItems" [value]="item.d_cliente">
+                                                        {{item.d_cliente}}
+                                                    </option>
+                                                </ng-container>
                                             </select>
                                         </div>
                                         <div *ngIf="submitted || getControl('inputClient').invalid && (getControl('inputClient').dirty || getControl('inputClient').touched)"
@@ -280,12 +312,22 @@
                                                     <td>
                                                         <div class="d-flex flex-row row">
                                                             <div class="d-flex flex-column col-12">
-                                                                <input name="lastName"
+                                                                <select #hallazgos [id]="'hallazgos'" name="hallazgos"
+                                                                    attr.data-identifier="{{'guidRaw' | guid}}"
+                                                                    class="form-control-ternium"
+                                                                    (change)="dgKeyChange(element, i, $event, $event.target.value)">
+                                                                    <option value="">Seleccione</option>
+                                                                    <option *ngFor="let item of hallazgosItems"
+                                                                        [value]="item.numero">
+                                                                        {{item.numero}}
+                                                                    </option>
+                                                                </select>
+                                                                <!-- <input name="lastName"
                                                                     attr.data-identifier="{{'guidRaw' | guid}}"
                                                                     class="form-control-ternium"
                                                                     placeholder="Cantidad Hallazgos/Eventos"
                                                                     [type]="'number'"
-                                                                    (change)="dgKeyChange(element, i, $event, $event.target.value)">
+                                                                    (change)="dgKeyChange(element, i, $event, $event.target.value)"> -->
                                                             </div>
                                                         </div>
                                                     </td>

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { CargarListado } from 'src/app/shared/models/pages/cargar/cargar.model';
-import { AnularDT } from 'src/app/shared/models/pages/anular/anular.model';
+import { AnularDT, AnularLinea, AnularSave } from 'src/app/shared/models/pages/anular/anular.model';
 import { ErrorsService } from 'src/app/shared/services/errors/errors.service';
 import { ToolsService } from 'src/app/shared/services/tools/tools.service';
 import { AnularService } from 'src/app/shared/services/anular/anular.service';
@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 // Notifications
 import { NotificationService } from 'src/app/shared/services/notification/notification.service';
 import { typeNotification } from 'src/app/shared/models/notification.model';
+import { ResponseGeneric } from 'src/app/shared/models/generic.model';
 
 @Component({
   selector: 'app-anular',
@@ -29,11 +30,11 @@ export class AnularComponent implements OnInit, OnDestroy {
   // FORM GROUPS
   public anularFormGroup: FormGroup;
   // INPUTS DATA
-  public lineaItems$: Observable<{ linea: CargarListado }>;
+  public lineaItems$: Observable<{ linea: ResponseGeneric }>;
   // SUBSCRIPTIONS
   private cargarDTA: Subscription; // Observable<{ anularTb: AnularDT }>;
   // DATA TABLE
-  public cargarDTAItems: { anularTb: AnularDT };
+  public cargarDTAItems: { anularTb: ResponseGeneric };
   // ViewChilds
 
   constructor(
@@ -54,7 +55,7 @@ export class AnularComponent implements OnInit, OnDestroy {
   }
 
   private callEndpointsInit(): void {
-    this.lineaItems$ = this.anularService.getListas('').pipe(
+    this.lineaItems$ = this.anularService.getLinea().pipe(
       map((linea) => {
         return { linea };
       })
@@ -112,9 +113,9 @@ export class AnularComponent implements OnInit, OnDestroy {
 
     this.tools.resetDataTable('#tblAlertas');
     const lineaValue = this.getControl('inputLinea').value;
-    const fechaValue = moment.utc(moment(this.getControl('inputFecha').value, 'DD/MM/YYYY'));
-    const modelBuscar = {};
-    this.cargarDTA = this.anularService.postBuscarAnular(modelBuscar).pipe(
+    const fechaValue = moment(this.getControl('inputFecha').value, 'YYYY-MM-DD').format('YYYY-MM-DD');
+    // moment.utc(moment(this.getControl('inputFecha').value, 'DD/MM/YYYY')).format();
+    this.cargarDTA = this.anularService.getBuscarAnular(lineaValue, fechaValue).pipe(
       map((anularTb) => {
         const model: Array<AnularDT> = [];
         for (const item of anularTb.data) {
@@ -134,10 +135,14 @@ export class AnularComponent implements OnInit, OnDestroy {
     ).subscribe(sb => {
       this.cargarDTAItems = sb;
       this.tools.convertirDataTable('#tblAlertas');
+    }, (err) => {
+      this.toastr.showToastr('Hubo un problema al cargar datos', 'Error', {
+        type: typeNotification.error
+      });
     });
   }
 
-  public async agregarCausa(): Promise<any> {
+  public async agregarCausa(selectData: any): Promise<any> {
     const swalGen = Swal.mixin({
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
@@ -168,14 +173,23 @@ export class AnularComponent implements OnInit, OnDestroy {
           type: 'warning',
         }).then((rs2) => {
           if (rs2.value) {
-            const model = { value: rs2.value };
-            this.anularService.postGuardarAnular(model).subscribe(sb => {
+            const model: Array<AnularSave> = [];
+            model.push(
+              { param: '@Causa', value: rs.value },
+              { param: '@RecorridaNum', value: selectData.recorridakey },
+              { param: '@SirKey', value: 'USER' }
+            );
+            this.anularService.putGuardarAnular(model).subscribe(sb => {
               if (sb.success) {
                 this.toastr.showToastr('Se anuló correctamente', '', {
                   type: typeNotification.success
                 });
                 this.buscarAnular();
               }
+            }, (err) => {
+              this.toastr.showToastr('Hubo un problema al cargar datos', 'Error', {
+                type: typeNotification.error
+              });
             });
           }
         });

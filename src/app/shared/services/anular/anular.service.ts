@@ -3,15 +3,17 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorsService } from '../errors/errors.service';
 import { NotificationService } from '../notification/notification.service';
+import { ResponseGeneric } from '../../models/generic.model';
+import { AnularSave } from '../../models/pages/anular/anular.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnularService {
-  private readonly uri = 'http://localhost:3500/recorrida';
-  private readonly getListasUrl = `${this.uri}/Listado`;
+  private readonly uri = 'http://localhost:54079/api/verificaciones/recorrida';
+  private readonly getLineaUrl = `${this.uri}/Linea`;
   private readonly postBuscarAnularUrl = `${this.uri}/Anular`;
-  private readonly postGuardarAnularUrl = `${this.uri}/Anular2`;
+  private readonly putGuardarAnularUrl = `${this.uri}/Anular`;
 
   constructor(
     private http: HttpClient,
@@ -20,22 +22,28 @@ export class AnularService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': this.uri,
+      // 'Access-Control-Allow-Methods': 'POST, PUT, GET, OPTIONS, DELETE',
+      // 'Access-Control-Allow-Headers': 'x-requested-with',
+      // 'Access-Control-Max-Age': '3600',
+      // 'Access-Control-Allow-Credentials': 'true'
+      'Allow': 'GET, POST, OPTIONS, PUT, DELETE'
     })
   };
 
-  getListas(area: string): Observable<any> {
-    const url = `${this.getListasUrl}/${area}`;
-    return this.http.get<any>(url, this.httpOptions);
+  getLinea(): Observable<ResponseGeneric> {
+    const url = `${this.getLineaUrl}`;
+    return this.http.get<ResponseGeneric>(url, this.httpOptions);
   }
 
-  postBuscarAnular(model: any): Observable<any> {
-    const url = `${this.postBuscarAnularUrl}`;
-    return this.http.post<any>(url, this.httpOptions);
+  getBuscarAnular(linea: string, fecha: string): Observable<ResponseGeneric> {
+    const url = `${this.postBuscarAnularUrl}/${linea}/${fecha}`;
+    return this.http.get<ResponseGeneric>(url, this.httpOptions);
   }
 
-  postGuardarAnular(model: any): Observable<any> {
-    const url = `${this.postGuardarAnularUrl}`;
-    return this.http.post<any>(url, this.httpOptions);
+  putGuardarAnular(model: Array<AnularSave>): Observable<ResponseGeneric> {
+    const url = `${this.putGuardarAnularUrl}`;
+    return this.http.put<ResponseGeneric>(url, model, this.httpOptions);
   }
 }

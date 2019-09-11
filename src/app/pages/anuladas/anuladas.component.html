@@ -17,8 +17,8 @@
                                         formControlName="inputLinea">
                                         <option value="">Seleccione</option>
                                         <ng-container *ngIf="lineaItems$ | async; let values;">
-                                            <option *ngFor="let item of values.linea.data" [value]="item.numero_key">
-                                                {{item.d_nombre}}
+                                            <option *ngFor="let item of values.linea.data" [value]="item.linea_key">
+                                                {{item.descripcionLinea}}
                                             </option>
                                         </ng-container>
                                     </select>
@@ -53,19 +53,19 @@
                                         <ng-container *ngIf="cargarDTItems; let values;">
                                             <tr *ngFor="let element of values.anuladasTb.data; let i = index;">
                                                 <td>
-                                                    {{element.fecha}}
+                                                    {{element.column1}}
                                                 </td>
                                                 <td>
-                                                    {{element.turno}}
+                                                    {{element.turno_key}}
                                                 </td>
                                                 <td>
-                                                    {{element.tipo}}
+                                                    {{element.d_tiporecorrida}}
                                                 </td>
                                                 <td>
-                                                    {{element.verificador}}
+                                                    {{element.descripcionverificador}}
                                                 </td>
                                                 <td>
-                                                    {{element.causa}}
+                                                    {{element.t_causa}}
                                                 </td>
                                             </tr>
                                         </ng-container>

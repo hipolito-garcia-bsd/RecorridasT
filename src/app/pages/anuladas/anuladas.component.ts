@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 // MODELS
 import { CargarListado } from 'src/app/shared/models/pages/cargar/cargar.model';
-import { AnuladasDT } from 'src/app/shared/models/pages/anuladas/anuladas.model';
+import { AnuladasDT, IAnuladasDT } from 'src/app/shared/models/pages/anuladas/anuladas.model';
 import { errorsType, errorConfig, Error } from 'src/app/shared/models/errors.model';
 // SERVICES
 import { ErrorsService } from 'src/app/shared/services/errors/errors.service';
@@ -20,6 +20,7 @@ import Swal from 'sweetalert2';
 // Notifications
 import { NotificationService } from 'src/app/shared/services/notification/notification.service';
 import { typeNotification } from 'src/app/shared/models/notification.model';
+import { ResponseGeneric } from 'src/app/shared/models/generic.model';
 
 
 @Component({
@@ -33,11 +34,11 @@ export class AnuladasComponent implements OnInit, OnDestroy {
   // FORM GROUPS
   public anuladasFormGroup: FormGroup;
   // IMPUTS DATA
-  public lineaItems$: Observable<{ linea: CargarListado }>;
+  public lineaItems$: Observable<{ linea: ResponseGeneric }>;
   // SUBSCRIPTORS
   private cargarDT: Subscription;
   // DATA TABLE
-  public cargarDTItems: { anuladasTb: AnuladasDT };
+  public cargarDTItems: { anuladasTb: ResponseGeneric };
 
 
   constructor(
@@ -59,7 +60,7 @@ export class AnuladasComponent implements OnInit, OnDestroy {
   }
 
   private callEndpointsInit(): void {
-    this.lineaItems$ = this.anularService.getListas('').pipe(
+    this.lineaItems$ = this.anularService.getLinea().pipe(
       map((linea) => {
         return { linea };
       })
@@ -116,21 +117,20 @@ export class AnuladasComponent implements OnInit, OnDestroy {
 
     this.tools.resetDataTable('#tblAlertas');
     const lineaValue = this.getControl('inputLinea').value;
-    const modelBuscar = {};
-    this.cargarDT = this.anuladasServuce.getBuscarAnuladas(modelBuscar).pipe(
+    this.cargarDT = this.anuladasServuce.getBuscarAnuladas(lineaValue).pipe(
       map((anuladasTb) => {
-        const model: Array<AnuladasDT> = [];
-        for (const item of anuladasTb.data) {
-          model.push(new AnuladasDT({
-            fecha: item.fecha,
-            turno: item.turno,
-            tipo: item.tipo,
-            verificador: item.Verificador,
-            causa: item.causa
-          }));
-        }
-        anuladasTb.data = [];
-        anuladasTb.data = model;
+        // const model: Array<AnuladasDT> = [];
+        // for (const item of anuladasTb.data) {
+        //   model.push(new AnuladasDT({
+        //     fecha: item.fecha,
+        //     turno: item.turno,
+        //     tipo: item.tipo,
+        //     verificador: item.Verificador,
+        //     causa: item.causa
+        //   }));
+        // }
+        // anuladasTb.data = [];
+        // anuladasTb.data = model;
         return { anuladasTb };
       })
     ).subscribe(sb => {

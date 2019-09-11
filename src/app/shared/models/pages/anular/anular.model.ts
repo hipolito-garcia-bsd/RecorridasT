@@ -15,3 +15,23 @@ export class AnularDT {
         this.cantidadRecorridas = model.cantidadRecorridas;
     }
 }
+
+export interface AnularLinea {
+    linea_key: string;
+    descripcionLinea: string;
+}
+
+export interface AnularSave {
+    param: string;
+    value: string;
+}
+
+export class AnularSave {
+    param: string;
+    value: string;
+
+    constructor(param: string, value: string) {
+        this.param = param;
+        this.value = value;
+    }
+}
