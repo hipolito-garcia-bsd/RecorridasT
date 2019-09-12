@@ -61,6 +61,15 @@ $ternium-primary: #34495e;
   color: #fff !important;
 }
 
+button.btn.btn-secondary {
+  padding: 10px !important;
+  // margin: 0 !important;
+}
+
+div.dt-buttons.btn-group {
+  margin: 0 !important;
+}
+
 @import "core/reboot";
 
 // Core Components

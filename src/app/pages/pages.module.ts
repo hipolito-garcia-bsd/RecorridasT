@@ -11,6 +11,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AnularComponent } from './anular/anular.component';
 import { PipesModule } from '../shared/pipes/pipes.module';
 import { AnuladasComponent } from './anuladas/anuladas.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AnuladasComponent } from './anuladas/anuladas.component';
     FormsModule,
     ReactiveFormsModule,
     SweetAlert2Module,
-    PipesModule
+    PipesModule,
+    DataTablesModule,
   ]
 })
 export class PagesModule { }

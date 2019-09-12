@@ -5,7 +5,7 @@ import { AnularDT, AnularLinea, AnularSave } from 'src/app/shared/models/pages/a
 import { ErrorsService } from 'src/app/shared/services/errors/errors.service';
 import { ToolsService } from 'src/app/shared/services/tools/tools.service';
 import { AnularService } from 'src/app/shared/services/anular/anular.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
 import { Error, errorsType, errorConfig } from 'src/app/shared/models/errors.model';
 import { map } from 'rxjs/operators';
 // MOMENT
@@ -31,10 +31,12 @@ export class AnularComponent implements OnInit, OnDestroy {
   public anularFormGroup: FormGroup;
   // INPUTS DATA
   public lineaItems$: Observable<{ linea: ResponseGeneric }>;
+  private selectedLineaText: string;
   // SUBSCRIPTIONS
   private cargarDTA: Subscription; // Observable<{ anularTb: AnularDT }>;
   // DATA TABLE
   public cargarDTAItems: { anularTb: ResponseGeneric };
+  public dtOptions: any = {};
   // ViewChilds
 
   constructor(
@@ -73,7 +75,7 @@ export class AnularComponent implements OnInit, OnDestroy {
     return this.anularFormGroup.get(path);
   }
 
-  private unsubscribe(obj?: Subscription, all: boolean = false): void {
+  private unsubscribe(obj?: Subscription | Subject<any>, all: boolean = false): void {
     if (obj) {
       if (obj) {
         obj.unsubscribe();
@@ -115,6 +117,15 @@ export class AnularComponent implements OnInit, OnDestroy {
     const lineaValue = this.getControl('inputLinea').value;
     const fechaValue = moment(this.getControl('inputFecha').value, 'YYYY-MM-DD').format('YYYY-MM-DD');
     // moment.utc(moment(this.getControl('inputFecha').value, 'DD/MM/YYYY')).format();
+    this.dtOptions = this.tools.getOptions({
+      buttons: [
+        {
+          extend: 'excelHtml5',
+          text: 'Excel',
+          messageTop: `Linea: ${this.selectedLineaText} (${lineaValue}). Fecha: ${fechaValue}`
+        }
+      ]
+    });
     this.cargarDTA = this.anularService.getBuscarAnular(lineaValue, fechaValue).pipe(
       map((anularTb) => {
         const model: Array<AnularDT> = [];
@@ -134,7 +145,7 @@ export class AnularComponent implements OnInit, OnDestroy {
       })
     ).subscribe(sb => {
       this.cargarDTAItems = sb;
-      this.tools.convertirDataTable('#tblAlertas');
+      // this.tools.convertirDataTable('#tblAlertas');
     }, (err) => {
       this.toastr.showToastr('Hubo un problema al cargar datos', 'Error', {
         type: typeNotification.error
@@ -195,5 +206,11 @@ export class AnularComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  public changeLinea(event: any) {
+    const index = event.target.selectedIndex;
+    const text = event.target[index].text;
+    this.selectedLineaText = text;
   }
 }

@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import 'datatables.net';
+import 'datatables.net-dt';
 import 'datatables.net-bs4';
+import 'datatables.net-buttons';
+import 'datatables.net-buttons-dt';
+import 'datatables.net-buttons-bs4';
 
 import * as $ from 'jquery';
 // declare let $: any;
@@ -10,8 +14,66 @@ import * as $ from 'jquery';
   providedIn: 'root'
 })
 export class ToolsService {
+  public dtOptions: any = {
+    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
+    language: {
+      processing: 'Procesando...',
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      emptyTable: 'Ningún dato disponible en esta tabla',
+      info: '_START_ a _END_ de _TOTAL_ registro(s)',
+      infoEmpty: '0 a 0 de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      infoPostFix: '',
+      search: 'Buscar:',
+      url: '',
+      thousands: ',',
+      loadingRecords: 'Cargando...',
+      paginate: {
+        first: 'Primero',
+        last: 'Último',
+        next: 'Siguiente',
+        previous: 'Anterior'
+      },
+      aria: {
+        sortAscending: ': Activar para ordenar la columna de manera ascendente',
+        sortDescending: ': Activar para ordenar la columna de manera descendente'
+      }
+    },
+    dom: '<"row"<"col-6"l><"col-6"f>><"row"<"col-12"tr>><"row"<"col-3"i><"col-9"B>><"row"<"col-12"p>>',
+    // '<"top"Blf>rt<"bottom"ip><"clear">',
+    buttons: [
+      'columnsToggle',
+      // 'colvis'
+      {
+        extend: 'copyHtml5',
+        text: 'Excel',
+        messageTop: ''
+      },
+      {
+        extend: 'csvHtml5',
+        text: 'Excel',
+        messageTop: ''
+      },
+      {
+        extend: 'pdfHtml5',
+        text: 'Excel',
+        messageTop: ''
+      },
+      {
+        extend: 'excelHtml5',
+        text: 'Excel',
+        messageTop: ''
+      }
+    ]
+  };
 
   constructor() { }
+
+  getOptions(customOptions: any = null): any {
+    const mergeOptions = Object.assign({}, this.dtOptions , customOptions);
+    return mergeOptions;
+  }
 
   convertirDataTable(selector: string) {
     $(selector).DataTable().destroy();
@@ -42,6 +104,7 @@ export class ToolsService {
             sortDescending: ': Activar para ordenar la columna de manera descendente'
           }
         }
+        // buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
       });
     }, 1000);
   }

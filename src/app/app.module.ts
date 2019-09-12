@@ -26,6 +26,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { APP_BASE_HREF } from '@angular/common';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { PipesModule } from './shared/pipes/pipes.module';
+import { DataTablesModule } from 'angular-datatables';
 
 export function getBaseHref(): string {
   return window.location.pathname;
@@ -47,7 +48,8 @@ export function getBaseHref(): string {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot(),
-    PipesModule
+    PipesModule,
+    DataTablesModule
   ],
   providers: [
     {
