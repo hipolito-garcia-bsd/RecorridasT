@@ -5,12 +5,13 @@ import { ErrorsService } from '../errors/errors.service';
 import { NotificationService } from '../notification/notification.service';
 import { ResponseGeneric } from '../../models/generic.model';
 import { AnularSave } from '../../models/pages/anular/anular.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnularService {
-  private readonly uri = 'http://localhost:54079/api/verificaciones/recorrida';
+  private readonly uri = `${environment.url}/api/verificaciones/recorrida`;
   private readonly getLineaUrl = `${this.uri}/Linea`;
   private readonly postBuscarAnularUrl = `${this.uri}/Anular`;
   private readonly putGuardarAnularUrl = `${this.uri}/Anular`;

@@ -66,7 +66,31 @@
                         ]
                     },
                     "configurations": {
-                        "production": {
+                        "local": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.local.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        },
+                        "prod": {
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -101,8 +125,11 @@
                         "browserTarget": "BASE-TEMPLATE-DOS:build"
                     },
                     "configurations": {
-                        "production": {
-                            "browserTarget": "BASE-TEMPLATE-DOS:build:production"
+                        "local": {
+                            "browserTarget": "BASE-TEMPLATE-DOS:build:local"
+                        },
+                        "prod": {
+                            "browserTarget": "BASE-TEMPLATE-DOS:build:prod"
                         },
                         "es5": {
                             "browserTarget": "BASE-TEMPLATE-DOS:build:es5"

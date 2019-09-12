@@ -6,12 +6,13 @@ import { ErrorsService } from '../errors/errors.service';
 import { NotificationService } from '../notification/notification.service';
 import { ResponseGeneric } from '../../models/generic.model';
 import { CargarSaveModel } from '../../models/pages/cargar/cargar.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CargarService {
-  private readonly uri = 'http://localhost:54079/api/verificaciones/recorrida';
+  private readonly uri = `${environment.url}/api/verificaciones/recorrida`;
   private readonly getHorasUrl = `${this.uri}/Horas`;
   private readonly getTurnoUrl = `${this.uri}/Turno`;
   private readonly getMarcoAreaUrl = `${this.uri}/MacroArea`;

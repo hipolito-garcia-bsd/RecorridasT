@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorsService } from '../errors/errors.service';
 import { Observable } from 'rxjs';
 import { ResponseGeneric } from '../../models/generic.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnuladasService {
-  private readonly uri = 'http://localhost:54079/api/verificaciones/recorrida';
+  private readonly uri = `${environment.url}/api/verificaciones/recorrida`;
   private readonly getBuscarAnuladasUrl = `${this.uri}/Anuladas`;
 
   constructor(
