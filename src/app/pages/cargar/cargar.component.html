@@ -9,7 +9,7 @@
 
                     <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="stepperChange($event)">
                         <mat-step #step1 [stepControl]="cargarFormGroup">
-                            <form [formGroup]="cargarFormGroup">
+                            <form #fromDirective="ngForm" [formGroup]="cargarFormGroup">
                                 <ng-template matStepLabel>Datos Generales (Detección)</ng-template>
                                 <div class="d-flex flex-row row">
                                     <div class="d-flex flex-column col-4 p-2">
@@ -123,7 +123,7 @@
                                             <select #inputTurn [id]="'inputTurn'" name="inputTurn"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputTurn').errors }"
-                                                formControlName="inputTurn">
+                                                formControlName="inputTurn" [(ngModel)]="turnoDefault">
                                                 <option value="">Seleccione</option>
                                                 <option *ngFor="let item of tunoItems" [value]="item.turno">
                                                     {{item.turno}}
@@ -142,7 +142,8 @@
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputFrameArea').errors }"
                                                 formControlName="inputFrameArea"
-                                                (change)="macroAreaChange($event, macroArea.value)">
+                                                (change)="macroAreaChange($event, macroArea.value)"
+                                                [(ngModel)]="macroAreaDefault">
                                                 <option value="">Seleccione</option>
                                                 <option *ngFor="let item of macroAreaItems"
                                                     [value]="item.macroArea_key">
@@ -164,7 +165,8 @@
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputArea').errors }"
                                                 formControlName="inputArea"
-                                                (change)="areaChange($event, inputArea.value)" disabled>
+                                                (change)="areaChange($event, inputArea.value)" [(ngModel)]="areaDefault"
+                                                disabled>
                                                 <ng-container *ngIf="!inputArea.disabled">
                                                     <option value="">Seleccione</option>
                                                     <option *ngFor="let item of areaItems" [value]="item.area_key">
@@ -184,7 +186,7 @@
                                             <select #inputClient [id]="'inputClient'" name="inputClient"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputClient').errors }"
-                                                formControlName="inputClient" disabled>
+                                                formControlName="inputClient" [(ngModel)]="clienteDefault" disabled>
                                                 <ng-container *ngIf="!inputList.disabled">
                                                     <option value="" selected="selected">Seleccione</option>
                                                     <option *ngFor="let item of clienteItems" [value]="item.d_cliente">
@@ -206,7 +208,7 @@
                                             <select #inputList [id]="'inputList'" name="inputList"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputList').errors }"
-                                                formControlName="inputList" disabled>
+                                                formControlName="inputList" [(ngModel)]="listDefault" disabled>
                                                 <ng-container *ngIf="!inputList.disabled">
                                                     <option value="">Seleccione</option>
                                                     <option *ngFor="let item of listItems" [value]="item.numero_key">
@@ -226,7 +228,7 @@
                                             <select #inputChecker [id]="'inputChecker'" name="inputChecker"
                                                 attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
                                                 [ngClass]="{ 'is-invalid': submitted && getControl('inputChecker').errors }"
-                                                formControlName="inputChecker" disabled>
+                                                formControlName="inputChecker" [(ngModel)]="checkerDefault" disabled>
                                                 <ng-container *ngIf="!inputChecker.disabled">
                                                     <option value="">Seleccione</option>
                                                     <option *ngFor="let item of checkerItems"

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray, AbstractControl, NgForm } from '@angular/forms';
 import { MatTableDataSource, MatHorizontalStepper, MatStepper } from '@angular/material';
 import { Subscription, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -48,6 +48,13 @@ export class CargarComponent implements OnInit, OnDestroy {
   public checkerItems: Array<CargarVerificador>;
   public tiposRecorridaItems: Array<CargarTipoRecorridas>;
   public hallazgosItems: Array<CargarHallazgos> = CargarHallazgos.getHallazgos(10);
+  // IMPUTS DEFAULT
+  public turnoDefault: string = null;
+  public macroAreaDefault: string = null;
+  public areaDefault: string = null;
+  public clienteDefault: string = null;
+  public listDefault: string = null;
+  public checkerDefault: string = null;
   // SUBSCRIPTIONS
   public htmac: Subscription;
   public recorridaSave: Subscription;
@@ -59,11 +66,12 @@ export class CargarComponent implements OnInit, OnDestroy {
   public dataSourceDG: MatTableDataSource<CargarDT> = null;
   public dtSelected: Array<[number, CargarDTSelected]> = []; // Index row | model
   // VIEW CHILDS
-  @ViewChild('inputArea', { static: true }) childArea: ElementRef;
-  @ViewChild('inputList', { static: true }) childListado: ElementRef;
-  @ViewChild('inputChecker', { static: true }) childVerificador: ElementRef;
-  @ViewChild('inputClient', { static: true }) childClient: ElementRef;
-  @ViewChild('stepper', { static: true }) stepper: MatStepper;
+  @ViewChild('inputArea', { static: true }) private childArea: ElementRef;
+  @ViewChild('inputList', { static: true }) private childListado: ElementRef;
+  @ViewChild('inputChecker', { static: true }) private childVerificador: ElementRef;
+  @ViewChild('inputClient', { static: true }) private childClient: ElementRef;
+  @ViewChild('stepper', { static: true }) private stepper: MatStepper;
+  @ViewChild('fromDirective', { static: true}) private formDirective: NgForm;
   //#endregion
 
   constructor(
@@ -106,6 +114,8 @@ export class CargarComponent implements OnInit, OnDestroy {
       this.tunoItems = sb.turno.data;
       this.macroAreaItems = sb.macroArea.data;
       this.clienteItems = sb.cliente.data;
+      this.turnoDefault = '';
+      this.macroAreaDefault = '';
     }, (err) => {
       this.notify.showToastr('Hubo un problema al cargar datos', 'Error', {
         type: typeNotification.error
@@ -169,6 +179,8 @@ export class CargarComponent implements OnInit, OnDestroy {
         this.areaItems = sb.area.data;
         this.checkerItems = sb.verificador.data;
         this.childArea.nativeElement.value = 0;
+        this.areaDefault = '';
+        this.checkerDefault = '';
       }, (err) => {
         this.notify.showToastr('Hubo un problema al cargar datos', 'Error', {
           type: typeNotification.error
@@ -190,6 +202,8 @@ export class CargarComponent implements OnInit, OnDestroy {
     if (value) {
       this.ObsListado = this.cargarService.getListas(value).subscribe((sb) => {
         this.listItems = sb.data;
+        this.listDefault = '';
+        this.clienteDefault = '';
       }, (err) => {
         this.notify.showToastr('Hubo un problema al cargar datos', 'Error', {
           type: typeNotification.error
@@ -373,6 +387,12 @@ export class CargarComponent implements OnInit, OnDestroy {
         this.tools.resetDataTable('#tblAlertas');
         this.stepper.reset();
         this.cargarFormGroup.reset();
+        this.childClient.nativeElement.disabled = true;
+        this.childListado.nativeElement.disabled = true;
+        this.childArea.nativeElement.disabled = true;
+        this.childVerificador.nativeElement.disabled = true;
+        this.turnoDefault = '';
+        this.macroAreaDefault = '';
       } else {
         this.notify.showToastr('Hubo un problema al guardar', 'Error', {
           type: typeNotification.error
