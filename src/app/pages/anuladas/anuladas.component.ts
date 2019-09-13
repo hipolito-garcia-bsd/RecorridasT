@@ -154,12 +154,14 @@ export class AnuladasComponent implements OnInit, OnDestroy {
         {
           extend: 'excelHtml5',
           text: 'Excel',
-          messageTop
+          messageTop,
+          className: 'buttonsDownloadDT'
         },
         {
           extend: 'pdfHtml5',
           text: 'Pdf',
-          messageTop
+          messageTop,
+          className: 'buttonsDownloadDT pb-11'
         },
       ]
     });

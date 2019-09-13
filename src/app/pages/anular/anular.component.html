@@ -8,8 +8,8 @@
                     </mat-expansion-panel-header>
                     <form [formGroup]="anularFormGroup">
                         <div class="d-flex flex-row row">
-                            <div class="d-flex flex-column col-6 p-2">
-                                <label>Linea</label>
+                            <div class="d-flex flex-column col-4 p-2">
+                                <label>Línea</label>
                                 <div class="d-flex">
                                     <select #inputLinea [id]="'inputLinea'" name="inputLinea"
                                         attr.data-identifier="{{'guidRaw' | guid}}" class="form-control-ternium"
@@ -28,7 +28,7 @@
                                     {{getError('inputLinea', anularFormGroup )}}
                                 </div>
                             </div>
-                            <div class="d-flex flex-column col-6 p-2">
+                            <div class="d-flex flex-column col-4 p-2">
                                 <label>Fecha</label>
                                 <div class="d-flex">
                                     <input #inputFecha [id]="'inputFecha'" name="inputFecha"
@@ -53,13 +53,12 @@
                                     </div> -->
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex flex-row-reverse row">
-                            <div class="d-flex flex-column col-4 p-2">
-                                <button mat-flat-button color="primary" (click)="buscarAnular()">Buscar</button>
+                            <div class="d-flex flex-column col-4 p-2 align-items-end">
+                                <label>&nbsp;&nbsp;</label>
+                                <button mat-flat-button color="primary" class="float-right"
+                                    (click)="buscarAnular()">Buscar</button>
                             </div>
                         </div>
-
                     </form>
                     <div class="d-flex flex-row row" *ngIf="cargarDTAItems">
                         <div class="d-flex flex-column col p-2">

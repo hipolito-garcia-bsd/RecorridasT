@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "BASE-TEMPLATE-DOS": {
+        "Recorridas": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/BASE-TEMPLATE-DOS",
+                        "outputPath": "dist/Recorridas",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -72,7 +72,7 @@
                             "node_modules/datatables.net-buttons/js/buttons.print.js",
                             "src/assets/js/pdfmake/pdfmake.min.js",
                             "src/assets/js/pdfmake/vfs_fonts.js",
-                            "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+                            "node_modules/datatables.net-responsive/js/dataTables.responsive.js"
                         ]
                     },
                     "configurations": {
@@ -156,27 +156,27 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "BASE-TEMPLATE-DOS:build"
+                        "browserTarget": "Recorridas:build"
                     },
                     "configurations": {
                         "local": {
-                            "browserTarget": "BASE-TEMPLATE-DOS:build:local"
+                            "browserTarget": "Recorridas:build:local"
                         },
                         "dev": {
-                            "browserTarget": "BASE-TEMPLATE-DOS:build:dev"
+                            "browserTarget": "Recorridas:build:dev"
                         },
                         "production": {
-                            "browserTarget": "BASE-TEMPLATE-DOS:build:production"
+                            "browserTarget": "Recorridas:build:production"
                         },
                         "es5": {
-                            "browserTarget": "BASE-TEMPLATE-DOS:build:es5"
+                            "browserTarget": "Recorridas:build:es5"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "BASE-TEMPLATE-DOS:build"
+                        "browserTarget": "Recorridas:build"
                     }
                 },
                 "test": {
@@ -213,16 +213,16 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "BASE-TEMPLATE-DOS:serve"
+                        "devServerTarget": "Recorridas:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "BASE-TEMPLATE-DOS:serve:production"
+                            "devServerTarget": "Recorridas:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "BASE-TEMPLATE-DOS"
+    "defaultProject": "Recorridas"
 }

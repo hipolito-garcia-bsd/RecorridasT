@@ -24,22 +24,25 @@ export const DtOptionsDefault: Partial<DataTables.Settings> = {
             sortDescending: ': Activar para ordenar la columna de manera descendente'
         }
     },
-    dom: '<"row"<"col-6"l><"col-6"f>><"row"<"col-12"tr>><"row"<"col-3"i><"col-9"B>><"row"<"col-12"p>>',
+    dom: '<"row"<"col-6"l><"col-6"f>><"row"<"col-12"tr>><"row"<"col-3"i>><"row"<"col-6"B><"col-6"p>>',
     buttons: [
         {
             extend: 'excelHtml5',
             text: 'Excel',
-            messageTop: ''
+            messageTop: '',
+            className: 'buttonsDownloadDT'
         },
         {
             extend: 'csvHtml5',
             text: 'Cvs',
-            messageTop: ''
+            messageTop: '',
+            className: 'buttonsDownloadDT'
         },
         {
             extend: 'pdfHtml5',
             text: 'Pdf',
-            messageTop: ''
+            messageTop: '',
+            className: 'buttonsDownloadDT'
         }
     ]
 };

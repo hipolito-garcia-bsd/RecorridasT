@@ -226,7 +226,8 @@ export class AnularComponent implements OnInit, OnDestroy {
           messageTop,
           exportOptions: {
             columns: [1, 2, 3, 4]
-          }
+          },
+          className: 'buttonsDownloadDT'
         },
         {
           extend: 'pdfHtml5',
@@ -234,7 +235,8 @@ export class AnularComponent implements OnInit, OnDestroy {
           messageTop,
           exportOptions: {
             columns: [1, 2, 3, 4]
-          }
+          },
+          className: 'buttonsDownloadDT'
         },
       ]
     });

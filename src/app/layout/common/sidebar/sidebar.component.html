@@ -15,14 +15,20 @@
 
     <div class="user">
         <div class="photo href-class">
-            <!--
-                <img *ngIf="sigla" class="photo-user" [src]="sigla.imagen">
-                <i *ngIf="!sigla" class="fas fa-user-circle"></i>-->
+            <div *ngIf="!userInfo.tumbnail; else elseTumbnail">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <ng-template #elseTumbnail>
+                <!-- <img src="data:image/png;base64,{{userInfo.tumbnail}}"> -->
+                <img style="width: 35px; height: 35px; line-height: 24px; border-radius: 20px;color: #b9b9b9;"
+                    src="data:image/png;base64,{{userInfo.tumbnail}}"
+                    onerror="this.src='../../../../assets/img/user-circle-solid.svg';this.onerror='';">
+            </ng-template>
         </div>
         <div class="user-info">
             <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                 <span>
-                    Fabián Ramírez
+                    {{userInfo.nombreSubst}}
                 </span>
             </a>
         </div>
@@ -38,7 +44,9 @@
                 <p>{{menuitem.title}}</p>
             </a>
             <!--If it have a submenu-->
-            <a data-toggle="collapse" href="#{{menuitem.collapse}}" role="button" aria-expanded="false" [attr.aria-controls]="menuitem.collapse" *ngIf="menuitem.type === 'sub'" (click)="updatePS()" class="nav-link">
+            <a data-toggle="collapse" href="#{{menuitem.collapse}}" role="button" aria-expanded="false"
+                [attr.aria-controls]="menuitem.collapse" *ngIf="menuitem.type === 'sub'" (click)="updatePS()"
+                class="nav-link">
                 <i class="material-icons">{{menuitem.icontype}}</i>
                 <p>{{menuitem.title}}<b class="caret"></b></p>
             </a>

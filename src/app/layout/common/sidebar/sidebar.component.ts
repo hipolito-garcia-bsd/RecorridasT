@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { UserInfo } from 'src/app/shared/models/pages/user/user.model';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 
 declare const $: any;
@@ -27,19 +29,19 @@ export const ROUTES: RouteInfo[] = [
         path: '/cargar',
         title: 'Cargar',
         type: 'link',
-        icontype: 'apps'
+        icontype: 'post_add'
     },
     {
         path: '/anular',
         title: 'Anular',
         type: 'link',
-        icontype: 'apps'
+        icontype: 'event_busy'
     },
     {
         path: '/anuladas',
         title: 'Anuladas',
         type: 'link',
-        icontype: 'apps'
+        icontype: 'notifications_off'
     },
     // {
     //     path: '',
@@ -62,8 +64,11 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
     ps: any;
+    public userInfo: UserInfo;
 
-    constructor() { }
+    constructor(
+        private userService: UserService
+    ) { }
 
     isMobileMenu() {
         if ($(window).width() > 991) {
@@ -73,6 +78,7 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userInfo = this.userService.getUserInfoData();
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
             const elemSidebar = document.querySelector('.sidebar .sidebar-wrapper') as HTMLElement;

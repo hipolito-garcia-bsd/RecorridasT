@@ -70,6 +70,32 @@ div.dt-buttons.btn-group {
   margin: 0 !important;
 }
 
+.buttonsDownloadDT {
+  border: 0;
+  border-radius: 30px !important;
+  transition: all 0.3s;
+  padding: 0px 11px !important;
+  margin: 0 3px;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  /* background: transparent; */
+  text-align: center;
+  background-color: #34495e !important;
+  border-color: #34495e !important;
+  color: #fff !important;
+  margin-right: .5em !important;
+}
+
+.sidebar .user {
+  padding-bottom: 2em !important;
+  margin: 1em auto 0 !important;
+  position: relative;
+}
+
 @import "core/reboot";
 
 // Core Components
