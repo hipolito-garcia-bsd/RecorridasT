@@ -259,7 +259,7 @@ export class CargarComponent implements OnInit, OnDestroy {
         model.lineakey = undefined;
       }
     }
-    console.log(this.dtSelected);
+    // console.log(this.dtSelected);
   }
 
   public dgChange(item: CargarDT, index: number, event: Event, value: any) {
@@ -282,7 +282,7 @@ export class CargarComponent implements OnInit, OnDestroy {
         model.tiporecorridakey = undefined;
       }
     }
-    console.log(this.dtSelected);
+    // console.log(this.dtSelected);
   }
 
   public dgKeyChange(item: CargarDT, index: number, event: Event, value: string) {
@@ -305,7 +305,7 @@ export class CargarComponent implements OnInit, OnDestroy {
         model.cantidadHllazgos = undefined;
       }
     }
-    console.log(this.dtSelected);
+    // console.log(this.dtSelected);
   }
 
   public save() {
@@ -361,7 +361,7 @@ export class CargarComponent implements OnInit, OnDestroy {
     }
 
     this.recorridaSave = this.cargarService.postSave(finalModel).subscribe((sb) => {
-      console.log(sb);
+      // console.log(sb);
       if (sb.success) {
         Swal.fire({
           type: 'success',
@@ -373,6 +373,10 @@ export class CargarComponent implements OnInit, OnDestroy {
         this.tools.resetDataTable('#tblAlertas');
         this.stepper.reset();
         this.cargarFormGroup.reset();
+      } else {
+        this.notify.showToastr('Hubo un problema al guardar', 'Error', {
+          type: typeNotification.error
+        });
       }
     }, (err) => {
       this.notify.showToastr('Hubo un problema al guardar', 'Error', {

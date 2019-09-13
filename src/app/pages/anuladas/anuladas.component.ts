@@ -35,10 +35,12 @@ export class AnuladasComponent implements OnInit, OnDestroy {
   public anuladasFormGroup: FormGroup;
   // IMPUTS DATA
   public lineaItems$: Observable<{ linea: ResponseGeneric }>;
+  private selectedLineaText: string;
   // SUBSCRIPTORS
   private cargarDT: Subscription;
   // DATA TABLE
   public cargarDTItems: { anuladasTb: ResponseGeneric };
+  public dtOptions: any = {};
 
 
   constructor(
@@ -117,6 +119,8 @@ export class AnuladasComponent implements OnInit, OnDestroy {
 
     this.tools.resetDataTable('#tblAlertas');
     const lineaValue = this.getControl('inputLinea').value;
+    const messageTop = `Linea: ${this.selectedLineaText} (${lineaValue}).`;
+    this.dtOptions = this.getdtOptions(messageTop);
     this.cargarDT = this.anuladasServuce.getBuscarAnuladas(lineaValue).pipe(
       map((anuladasTb) => {
         // const model: Array<AnuladasDT> = [];
@@ -135,7 +139,29 @@ export class AnuladasComponent implements OnInit, OnDestroy {
       })
     ).subscribe(sb => {
       this.cargarDTItems = sb;
-      this.tools.convertirDataTable('#tblAlertas');
+    });
+  }
+
+  public changeLinea(event: any) {
+    const index = event.target.selectedIndex;
+    const text = event.target[index].text;
+    this.selectedLineaText = text;
+  }
+
+  private getdtOptions(messageTop: string): any {
+    return this.tools.getOptions({
+      buttons: [
+        {
+          extend: 'excelHtml5',
+          text: 'Excel',
+          messageTop
+        },
+        {
+          extend: 'pdfHtml5',
+          text: 'Pdf',
+          messageTop
+        },
+      ]
     });
   }
 }

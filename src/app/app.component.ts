@@ -1,13 +1,17 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { fullScreenElemet } from './app-base-helpers';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { UserService } from './shared/services/user/user.service';
+import { ResponseGeneric } from './shared/models/generic.model';
+import { Subscription } from 'rxjs';
+import { UserInfo } from './shared/models/pages/user/user.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   title = 'BASE';
   themes = [
@@ -17,7 +21,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  constructor(private ngxService: NgxUiLoaderService) {
+  constructor(
+    private ngxService: NgxUiLoaderService
+  ) {
   }
 
   ngOnInit(): void {
@@ -29,6 +35,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }, 1000);
 
     document.body.className = this.themes[0].themeClass;
+  }
+
+  ngOnDestroy() {
   }
 
   ngAfterViewInit(): void {

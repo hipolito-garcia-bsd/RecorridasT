@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,9 +27,14 @@ import { APP_BASE_HREF } from '@angular/common';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DataTablesModule } from 'angular-datatables';
+import { UserService } from './shared/services/user/user.service';
 
 export function getBaseHref(): string {
   return window.location.pathname;
+}
+
+export function getInfoUserInit(user: UserService) {
+  return () => user.load();
 }
 
 @NgModule({
@@ -64,7 +69,9 @@ export function getBaseHref(): string {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: APP_BASE_HREF, useFactory: getBaseHref },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    UserService,
+    { provide: APP_INITIALIZER, useFactory: getInfoUserInit, deps: [UserService], multi: true }
   ],
   bootstrap: [AppComponent]
 })

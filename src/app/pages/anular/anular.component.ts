@@ -18,6 +18,9 @@ import Swal from 'sweetalert2';
 import { NotificationService } from 'src/app/shared/services/notification/notification.service';
 import { typeNotification } from 'src/app/shared/models/notification.model';
 import { ResponseGeneric } from 'src/app/shared/models/generic.model';
+// UserInfo
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { UserInfo } from 'src/app/shared/models/pages/user/user.model';
 
 @Component({
   selector: 'app-anular',
@@ -37,17 +40,20 @@ export class AnularComponent implements OnInit, OnDestroy {
   // DATA TABLE
   public cargarDTAItems: { anularTb: ResponseGeneric };
   public dtOptions: any = {};
-  // ViewChilds
+  // USER DATA
+  public userInfo: UserInfo;
 
   constructor(
     private formBuilder: FormBuilder,
     private error: ErrorsService,
     private tools: ToolsService,
     private toastr: NotificationService,
-    private anularService: AnularService
+    private anularService: AnularService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
+    this.userInfo = this.userService.getUserInfoData();
     this.buildForm();
     this.callEndpointsInit();
   }
@@ -117,15 +123,8 @@ export class AnularComponent implements OnInit, OnDestroy {
     const lineaValue = this.getControl('inputLinea').value;
     const fechaValue = moment(this.getControl('inputFecha').value, 'YYYY-MM-DD').format('YYYY-MM-DD');
     // moment.utc(moment(this.getControl('inputFecha').value, 'DD/MM/YYYY')).format();
-    this.dtOptions = this.tools.getOptions({
-      buttons: [
-        {
-          extend: 'excelHtml5',
-          text: 'Excel',
-          messageTop: `Linea: ${this.selectedLineaText} (${lineaValue}). Fecha: ${fechaValue}`
-        }
-      ]
-    });
+    const messageTop = `Linea: ${this.selectedLineaText} (${lineaValue}). Fecha: ${fechaValue}`;
+    this.dtOptions = this.getdtOptions(messageTop);
     this.cargarDTA = this.anularService.getBuscarAnular(lineaValue, fechaValue).pipe(
       map((anularTb) => {
         const model: Array<AnularDT> = [];
@@ -188,7 +187,7 @@ export class AnularComponent implements OnInit, OnDestroy {
             model.push(
               { param: '@Causa', value: rs.value },
               { param: '@RecorridaNum', value: selectData.recorridakey },
-              { param: '@SirKey', value: 'USER' }
+              { param: '@SirKey', value: '' }
             );
             this.anularService.putGuardarAnular(model).subscribe(sb => {
               if (sb.success) {
@@ -196,9 +195,13 @@ export class AnularComponent implements OnInit, OnDestroy {
                   type: typeNotification.success
                 });
                 this.buscarAnular();
+              } else {
+                this.toastr.showToastr('Hubo un problema al guardar', 'Error', {
+                  type: typeNotification.error
+                });
               }
             }, (err) => {
-              this.toastr.showToastr('Hubo un problema al cargar datos', 'Error', {
+              this.toastr.showToastr('Hubo un problema al guardar', 'Error', {
                 type: typeNotification.error
               });
             });
@@ -212,5 +215,28 @@ export class AnularComponent implements OnInit, OnDestroy {
     const index = event.target.selectedIndex;
     const text = event.target[index].text;
     this.selectedLineaText = text;
+  }
+
+  private getdtOptions(messageTop: string): any {
+    return this.tools.getOptions({
+      buttons: [
+        {
+          extend: 'excelHtml5',
+          text: 'Excel',
+          messageTop,
+          exportOptions: {
+            columns: [1, 2, 3, 4]
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          text: 'Pdf',
+          messageTop,
+          exportOptions: {
+            columns: [1, 2, 3, 4]
+          }
+        },
+      ]
+    });
   }
 }
