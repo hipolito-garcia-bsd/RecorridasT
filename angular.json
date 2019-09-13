@@ -124,7 +124,7 @@
                                 }
                             ]
                         },
-                        "prod": {
+                        "production": {
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -165,8 +165,8 @@
                         "dev": {
                             "browserTarget": "BASE-TEMPLATE-DOS:build:dev"
                         },
-                        "prod": {
-                            "browserTarget": "BASE-TEMPLATE-DOS:build:prod"
+                        "production": {
+                            "browserTarget": "BASE-TEMPLATE-DOS:build:production"
                         },
                         "es5": {
                             "browserTarget": "BASE-TEMPLATE-DOS:build:es5"
