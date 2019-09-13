@@ -39,7 +39,7 @@ export class UserService {
     return new Promise((resolve, reject) => {
       const url = `${this.getUserInfoUrl}`;
       return this.http.get<ResponseGeneric>(url, this.httpOptions).subscribe(sb => {
-        const data = sb.data[0];
+        const data = sb.data;
         const model = new UserInfo(data.nombre, data.sigla, data.tumbnail);
         this.userInfo = model;
         resolve(true);
