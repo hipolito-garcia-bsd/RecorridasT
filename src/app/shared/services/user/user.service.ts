@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorsService } from '../errors/errors.service';
-import { NotificationService } from '../notification/notification.service';
 import { ResponseGeneric } from '../../models/generic.model';
-import { environment } from 'src/environments/environment';
 import { UserInfo } from '../../models/pages/user/user.model';
+import { AppConfigService } from '../appConfig/app-config.service';
 
 @Injectable()
 export class UserService {
-  private readonly uri = `${environment.url}/api/verificaciones/recorrida`;
-  private readonly getUserInfoUrl = `${this.uri}/UserInfo`;
+  private uri = '';
   private userInfo: UserInfo;
 
   constructor(
     private http: HttpClient,
-    private errors: ErrorsService
+    private errors: ErrorsService,
+    private appConfigService: AppConfigService
   ) { }
 
   private httpOptions = {
@@ -30,24 +29,18 @@ export class UserService {
     })
   };
 
-  getUserInfo(): Observable<ResponseGeneric> {
-    const url = `${this.getUserInfoUrl}`;
-    return this.http.get<ResponseGeneric>(url, this.httpOptions);
-  }
-
-  load() {
-    return new Promise((resolve, reject) => {
-      const url = `${this.getUserInfoUrl}`;
-      return this.http.get<ResponseGeneric>(url, this.httpOptions).subscribe(sb => {
-        const data = sb.data;
-        const model = new UserInfo(data.nombre, data.sigla, data.tumbnail);
+  async load(data: any) {
+    const url = `${data.apiBaseUrl}/api/verificaciones/recorrida/UserInfo`;
+    return await this.http.get<ResponseGeneric>(url, this.httpOptions)
+      .toPromise()
+      .then(sb => {
+        const dataM = sb.data;
+        const model = new UserInfo(dataM.nombre, dataM.sigla, dataM.tumbnail);
         this.userInfo = model;
-        resolve(true);
       });
-    });
   }
 
-  public getUserInfoData(): UserInfo {
+  get getUserInfoData(): UserInfo {
     return this.userInfo;
   }
 }

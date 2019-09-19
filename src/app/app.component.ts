@@ -1,10 +1,7 @@
 import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { fullScreenElemet } from './app-base-helpers';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { UserService } from './shared/services/user/user.service';
-import { ResponseGeneric } from './shared/models/generic.model';
-import { Subscription } from 'rxjs';
-import { UserInfo } from './shared/models/pages/user/user.model';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',

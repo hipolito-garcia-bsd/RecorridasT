@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import 'datatables.net';
-import 'datatables.net-dt';
 import 'datatables.net-bs4';
 import 'datatables.net-buttons';
-import 'datatables.net-buttons-dt';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-buttons/js/buttons.flash.js';
+import 'jszip';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import 'datatables.net-buttons-bs4';
+
 
 import * as $ from 'jquery';
 import { DtOptionsDefault } from '../../models/pages/tools/tools.model';
@@ -18,49 +23,55 @@ export class ToolsService {
 
   constructor() { }
 
-  getOptions(customOptions?: Partial<DataTables.Settings>): any {
-    const mergeOptions = Object.assign({}, DtOptionsDefault, customOptions);
-    return mergeOptions;
-  }
+  // getOptions(customOptions?: Partial<DataTables.Settings>): DataTables.Settings {
+  //   const mergeOptions = Object.assign({}, DtOptionsDefault, customOptions);
+  //   return mergeOptions;
+  // }
 
-  convertirDataTable(selector: string) {
+  convertirDataTable(selector: string, customOptions?: any) {
     $(selector).DataTable().destroy();
     setTimeout(() => {
-      $(selector).DataTable({
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
-        language: {
-          processing: 'Procesando...',
-          lengthMenu: 'Mostrar _MENU_ registros',
-          zeroRecords: 'No se encontraron resultados',
-          emptyTable: 'Ningún dato disponible en esta tabla',
-          info: '_START_ a _END_ de _TOTAL_ registro(s)',
-          infoEmpty: '0 a 0 de 0 registros',
-          infoFiltered: '(filtrado de un total de _MAX_ registros)',
-          infoPostFix: '',
-          search: 'Buscar:',
-          url: '',
-          thousands: ',',
-          loadingRecords: 'Cargando...',
-          paginate: {
-            first: 'Primero',
-            last: 'Último',
-            next: 'Siguiente',
-            previous: 'Anterior'
-          },
-          aria: {
-            sortAscending: ': Activar para ordenar la columna de manera ascendente',
-            sortDescending: ': Activar para ordenar la columna de manera descendente'
-          }
-        }
-        // buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
-      });
+      const mergeOptions = Object.assign({}, DtOptionsDefault, customOptions);
+      $(selector).DataTable(mergeOptions);
+      // $(selector).DataTable({
+      //   lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
+      //   language: {
+      //     processing: 'Procesando...',
+      //     lengthMenu: 'Mostrar _MENU_ registros',
+      //     zeroRecords: 'No se encontraron resultados',
+      //     emptyTable: 'Ningún dato disponible en esta tabla',
+      //     info: '_START_ a _END_ de _TOTAL_ registro(s)',
+      //     infoEmpty: '0 a 0 de 0 registros',
+      //     infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      //     infoPostFix: '',
+      //     search: 'Buscar:',
+      //     url: '',
+      //     thousands: ',',
+      //     loadingRecords: 'Cargando...',
+      //     paginate: {
+      //       first: 'Primero',
+      //       last: 'Último',
+      //       next: 'Siguiente',
+      //       previous: 'Anterior'
+      //     },
+      //     aria: {
+      //       sortAscending: ': Activar para ordenar la columna de manera ascendente',
+      //       sortDescending: ': Activar para ordenar la columna de manera descendente'
+      //     }
+      //   },
+      //   dom: '<"row"<"col-6"l><"col-6"f>><"row"<"col-12"tr>><"row"<"col-3"i>><"row"<"col-6"B><"col-6"p>>',
+      //   buttons
+      // });
     }, 1000);
   }
 
   resetDataTable(selector: string) {
+    debugger
     const dt = $(selector).DataTable();
-    dt.clear();
-    dt.destroy();
+    if (dt) {
+      dt.clear();
+      dt.destroy();
+    }
   }
 
   // Recupero el valor de los meses
@@ -156,5 +167,9 @@ export class ToolsService {
     }
 
     throw new Error('Unable to copy obj! Its type isn t supported.');
+  }
+
+  get isIeOrEdge(): boolean {
+    return /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
   }
 }

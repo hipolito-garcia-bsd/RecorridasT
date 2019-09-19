@@ -4,18 +4,23 @@ import { ErrorsService } from '../errors/errors.service';
 import { Observable } from 'rxjs';
 import { ResponseGeneric } from '../../models/generic.model';
 import { environment } from 'src/environments/environment';
+import { AppConfigService } from '../appConfig/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnuladasService {
-  private readonly uri = `${environment.url}/api/verificaciones/recorrida`;
-  private readonly getBuscarAnuladasUrl = `${this.uri}/Anuladas`;
+  private uri = '';
+  private getBuscarAnuladasUrl = '';
 
   constructor(
     private http: HttpClient,
-    private errors: ErrorsService
-  ) { }
+    private errors: ErrorsService,
+    private appConfigService: AppConfigService
+  ) {
+    this.uri = `${appConfigService.apiBaseUrl}/api/verificaciones/recorrida`;
+    this.getBuscarAnuladasUrl = `${this.uri}/Anuladas`;
+  }
 
   private httpOptions = {
     headers: new HttpHeaders({

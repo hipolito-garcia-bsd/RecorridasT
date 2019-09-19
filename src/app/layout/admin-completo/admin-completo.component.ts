@@ -8,9 +8,6 @@ import { NavItem, NavItemType } from 'src/app/shared/md/md.module';
 import { NavbarComponent } from '../common/navbar/navbar.component';
 
 
-declare const $: any;
-
-
 @Component({
   selector: 'app-admin-completo',
   templateUrl: './admin-completo.component.html',

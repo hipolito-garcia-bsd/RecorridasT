@@ -87,13 +87,22 @@ div.dt-buttons.btn-group {
   background-color: #34495e !important;
   border-color: #34495e !important;
   color: #fff !important;
-  margin-right: .5em !important;
+  margin-right: 0.5em !important;
 }
 
 .sidebar .user {
   padding-bottom: 2em !important;
   margin: 1em auto 0 !important;
   position: relative;
+}
+
+::ng-deep .mat-tooltip {
+  /* your own custom styles here */
+  /* e.g. */
+  color: white !important;
+}
+.white-tooltip {
+  color: white !important;
 }
 
 @import "core/reboot";

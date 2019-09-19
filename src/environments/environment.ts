@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // url: 'http://54.166.142.95:81'
-  url: 'http://localhost:54079'
+  url: 'http://localhost:54079',
+  virtualDirectory: ''
 };
 
 /*

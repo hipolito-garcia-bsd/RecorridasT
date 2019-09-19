@@ -12,7 +12,9 @@ import {
   MatSelectModule,
   MatStepperModule,
   MatDatepickerModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatTooltipModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -40,7 +42,9 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     AngularFontAwesomeModule,
     MatFormFieldModule,
     NgxMaterialTimepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

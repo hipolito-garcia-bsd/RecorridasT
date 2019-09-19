@@ -11,22 +11,25 @@ export const PagesRoutes: Routes = [
         path: 'cargar',
         component: AdminCompletoComponent,
         children: [
-            { path: '', component: CargarComponent }
-        ]
+            { path: '', component: CargarComponent, pathMatch: 'full' }
+        ],
+        pathMatch: 'full'
     },
     {
         path: 'anular',
         component: AdminCompletoComponent,
         children: [
-            { path: '', component: AnularComponent }
-        ]
+            { path: '', component: AnularComponent, pathMatch: 'full' }
+        ],
+        pathMatch: 'full'
     },
     {
         path: 'anuladas',
         component: AdminCompletoComponent,
         children: [
-            { path: '', component: AnuladasComponent }
-        ]
+            { path: '', component: AnuladasComponent, pathMatch: 'full' }
+        ],
+        pathMatch: 'full'
     }
 ];
 

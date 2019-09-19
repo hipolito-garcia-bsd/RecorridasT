@@ -21,8 +21,8 @@ export class LoaderInterceptor implements HttpInterceptor {
 
         return next.handle(req).pipe(
             tap(
-                event => console.log(event),
-                error => console.log(error)
+                // event => console.log(event),
+                // error => console.log(error)
             ),
             finalize(() => {
                 if (this.count > 0) {

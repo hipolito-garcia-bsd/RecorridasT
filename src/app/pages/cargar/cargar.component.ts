@@ -21,6 +21,8 @@ import {
   CargarTipoRecorridas, CargarListado, CargarVerificador, CargarDT, CargarDTSelected, CargarHoras, CargarHallazgos, CargarSaveModel
 } from '../../shared/models/pages/cargar/cargar.model';
 import { typeNotification } from 'src/app/shared/models/notification.model';
+import { ExtendedType } from 'src/app/shared/models/pages/tools/tools.model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-cargar',
@@ -31,6 +33,7 @@ export class CargarComponent implements OnInit, OnDestroy {
   //#region DECLARAR VARIABLES
   // FLAGS
   submitted = false;
+  public smallScreen: boolean;
   // FORM GROUPS
   public cargarFormGroup: FormGroup;
   public cargarDTFormGroup: FormGroup;
@@ -61,17 +64,19 @@ export class CargarComponent implements OnInit, OnDestroy {
   public ObsMacroAreaGroup: Subscription;
   public ObsListado: Subscription;
   public ObsRecOpTipR: Subscription;
+  public breakpoint: Subscription;
   // DATA TABLE
   public cargarDTA: Array<CargarDT> = [];
   public dataSourceDG: MatTableDataSource<CargarDT> = null;
   public dtSelected: Array<[number, CargarDTSelected]> = []; // Index row | model
+  public dtOptions: any = {};
   // VIEW CHILDS
   @ViewChild('inputArea', { static: true }) private childArea: ElementRef;
   @ViewChild('inputList', { static: true }) private childListado: ElementRef;
   @ViewChild('inputChecker', { static: true }) private childVerificador: ElementRef;
   @ViewChild('inputClient', { static: true }) private childClient: ElementRef;
   @ViewChild('stepper', { static: true }) private stepper: MatStepper;
-  @ViewChild('fromDirective', { static: true}) private formDirective: NgForm;
+  @ViewChild('fromDirective', { static: true }) private formDirective: NgForm;
   //#endregion
 
   constructor(
@@ -79,8 +84,16 @@ export class CargarComponent implements OnInit, OnDestroy {
     private errors: ErrorsService,
     private notify: NotificationService,
     private cargarService: CargarService,
-    private tools: ToolsService
-  ) { }
+    private tools: ToolsService,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.breakpoint = breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).subscribe(sb => {
+      this.smallScreen = sb.matches;
+    });
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -223,6 +236,8 @@ export class CargarComponent implements OnInit, OnDestroy {
     this.unsubscribe(this.ObsRecOpTipR);
     if (item.selectedIndex === 1) {
       const listValue = this.cargarFormGroup.get('inputList').value;
+      const messageTop = '';
+      this.dtOptions = this.getdtOptions(messageTop);
 
       this.ObsRecOpTipR = forkJoin([
         this.cargarService.getRecorridaOperaciones(listValue),
@@ -240,7 +255,7 @@ export class CargarComponent implements OnInit, OnDestroy {
           this.cargarDTA.push(new CargarDT(obj[key], obj.linea_key, obj.tiporecorrida_key, null));
         }
 
-        this.tools.convertirDataTable('#tblAlertas');
+        this.tools.convertirDataTable('#tblAlertas', this.dtOptions);
       }, (err) => {
         this.notify.showToastr('Hubo un problema al cargar datos', 'Error', {
           type: typeNotification.error
@@ -418,6 +433,7 @@ export class CargarComponent implements OnInit, OnDestroy {
       this.unsubscribe(this.ObsRecOpTipR);
       this.unsubscribe(this.htmac);
       this.unsubscribe(this.recorridaSave);
+      this.unsubscribe(this.breakpoint);
     }
   }
 
@@ -437,5 +453,31 @@ export class CargarComponent implements OnInit, OnDestroy {
       new Error(errorsType.minlength, `${errorConfig.minlength} ${requiredLength}`),
       new Error(errorsType.email, errorConfig.email)
     ], true);
+  }
+
+  private getdtOptions(messageTop: string): any {
+    // return this.tools.getOptions(
+    return {
+      buttons: [
+        // {
+        //   extend: this.tools.isIeOrEdge ? ExtendedType.excel : ExtendedType.excelHtml5,
+        //   text: 'Excel',
+        //   messageTop,
+        //   exportOptions: {
+        //     columns: [0, 1, 2]
+        //   },
+        //   className: 'buttonsDownloadDT'
+        // },
+        // {
+        //   extend: this.tools.isIeOrEdge ? ExtendedType.pdf : ExtendedType.pdfHtml5,
+        //   text: 'Pdf',
+        //   messageTop,
+        //   exportOptions: {
+        //     columns: [0, 1, 2]
+        //   },
+        //   className: 'buttonsDownloadDT'
+        // },
+      ]
+    };
   }
 }

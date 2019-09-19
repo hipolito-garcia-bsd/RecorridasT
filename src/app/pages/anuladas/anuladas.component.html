@@ -8,7 +8,7 @@
                     </mat-expansion-panel-header>
                     <form [formGroup]="anuladasFormGroup">
                         <div class="d-flex flex-row row">
-                            <div class="d-flex flex-column col-6 p-2">
+                            <div class="d-flex flex-column col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 p-2">
                                 <label>Línea</label>
                                 <div class="d-flex">
                                     <select #inputLinea [id]="'inputLinea'" name="inputLinea"
@@ -28,7 +28,7 @@
                                     {{getError('inputLinea', anuladasFormGroup )}}
                                 </div>
                             </div>
-                            <div class="d-flex flex-column col-6 p-2 align-items-end">
+                            <div class="d-flex flex-column col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 p-2 align-items-end">
                                 <label>&nbsp;&nbsp;</label>
                                 <button mat-flat-button color="primary" class="float-right" (click)="buscarAnuladas()">Buscar</button>
                             </div>
@@ -37,7 +37,7 @@
                     <div class="d-flex flex-row row" *ngIf="cargarDTItems">
                         <div class="d-flex flex-column col p-2">
                             <div class="table-responsive">
-                                <table datatable [dtOptions]="dtOptions" id="tblAlertas" cellpadding="1" cellspacing="1"
+                                <table id="tblAlertas" cellpadding="1" cellspacing="1"
                                     class="table table-bordered table-striped">
                                     <thead>
                                         <tr>

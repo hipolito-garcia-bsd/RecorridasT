@@ -10,8 +10,7 @@ const misc: any = {
   active_collapse: true,
   disabled_collapse_init: 0,
 };
-
-declare var $: any;
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-navbar',
@@ -99,7 +98,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userInfo = this.userService.getUserInfoData();
+    this.userInfo = this.userService.getUserInfoData;
     this.listTitles = ROUTES.filter(listTitle => listTitle);
 
     const navbar: HTMLElement = this.element.nativeElement;

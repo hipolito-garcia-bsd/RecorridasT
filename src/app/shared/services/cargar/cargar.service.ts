@@ -6,29 +6,42 @@ import { ErrorsService } from '../errors/errors.service';
 import { NotificationService } from '../notification/notification.service';
 import { ResponseGeneric } from '../../models/generic.model';
 import { CargarSaveModel } from '../../models/pages/cargar/cargar.model';
-import { environment } from 'src/environments/environment';
+import { AppConfigService } from '../appConfig/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CargarService {
-  private readonly uri = `${environment.url}/api/verificaciones/recorrida`;
-  private readonly getHorasUrl = `${this.uri}/Horas`;
-  private readonly getTurnoUrl = `${this.uri}/Turno`;
-  private readonly getMarcoAreaUrl = `${this.uri}/MacroArea`;
-  private readonly getAreaUrl = `${this.uri}/Area`;
-  private readonly getClienteUrl = `${this.uri}/Clientes`;
-  private readonly getListasUrl = `${this.uri}/Listado`;
-  private readonly getVerificadorUrl = `${this.uri}/Verificadores`;
-  private readonly getRecorridaOperacionesUrl = `${this.uri}/RecorridaOpciones`;
-  private readonly getTiposRecorridaUrl = `${this.uri}/TipoRecorrida`;
-  private readonly posSaveUrl = `${this.uri}/Recorrida`;
+  private uri = '';
+  private getHorasUrl = '';
+  private getTurnoUrl = '';
+  private getMarcoAreaUrl = '';
+  private getAreaUrl = '';
+  private getClienteUrl = '';
+  private getListasUrl = '';
+  private getVerificadorUrl = '';
+  private getRecorridaOperacionesUrl = '';
+  private getTiposRecorridaUrl = '';
+  private posSaveUrl = '';
 
   constructor(
     private http: HttpClient,
     private errors: ErrorsService,
-    private notify: NotificationService
-  ) { }
+    private notify: NotificationService,
+    private appConfigService: AppConfigService
+  ) {
+    this.uri = `${appConfigService.apiBaseUrl}/api/verificaciones/recorrida`;
+    this.getHorasUrl = `${this.uri}/Horas`;
+    this.getTurnoUrl = `${this.uri}/Turno`;
+    this.getMarcoAreaUrl = `${this.uri}/MacroArea`;
+    this.getAreaUrl = `${this.uri}/Area`;
+    this.getClienteUrl = `${this.uri}/Clientes`;
+    this.getListasUrl = `${this.uri}/Listado`;
+    this.getVerificadorUrl = `${this.uri}/Verificadores`;
+    this.getRecorridaOperacionesUrl = `${this.uri}/RecorridaOpciones`;
+    this.getTiposRecorridaUrl = `${this.uri}/TipoRecorrida`;
+    this.posSaveUrl = `${this.uri}/Recorrida`;
+  }
 
   private httpOptions = {
     headers: new HttpHeaders({

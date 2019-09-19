@@ -25,7 +25,8 @@
                         "aot": false,
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            "src/assets/json"
                         ],
                         "styles": [
                             "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
@@ -40,6 +41,8 @@
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.js",
+                            "node_modules/datatables.net/js/jquery.dataTables.js",
+                            "node_modules/datatables/media/js/jquery.dataTables.js",
                             "node_modules/popper.js/dist/umd/popper.js",
                             "node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js",
                             "node_modules/moment/moment.js",
@@ -60,8 +63,6 @@
                             "node_modules/jqvmap/dist/maps/jquery.vmap.world.js",
                             "node_modules/jquery-validation/dist/jquery.validate.min.js",
                             "node_modules/@fortawesome/fontawesome-free/js/all.js",
-                            "node_modules/datatables.net/js/jquery.dataTables.js",
-                            "node_modules/datatables/media/js/jquery.dataTables.js",
                             "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js",
                             "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
                             "node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.js",
@@ -188,7 +189,8 @@
                         "karmaConfig": "karma.conf.js",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            "src/assets/json"
                         ],
                         "styles": [
                             "src/styles.scss"

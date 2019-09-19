@@ -1,5 +1,29 @@
-export const DtOptionsDefault: Partial<DataTables.Settings> = {
+export const enum ExtendedType {
+    excel = 'excel',
+    pdf = 'pdf',
+    copy = 'copy',
+    csv = 'csv',
+    excelHtml5 = 'excelHtml5',
+    pdfHtml5 = 'pdfHtml5',
+    copyHtml5 = 'copyHtml5',
+    csvHtml5 = 'csvHtml5',
+    excelFlash = 'excelFlash',
+    pdfFlash = 'pdfFlash',
+    copyFlash = 'copyFlash',
+    csvFlash = 'csvFlash'
+}
+
+const doom = {
+    header: '<"row"<"col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12"l><"col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12"f>>',
+    body: '<"row"<"col-12"tr>>',
+    footer: '<"row"<"col-3"i>><"row"<"col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"B><"col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"p>>'
+};
+
+export const DtOptionsDefault: any = {
     lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
+    processing: true,
+    deferLoading: 0,
+    deferRender: true,
     language: {
         processing: 'Procesando...',
         lengthMenu: 'Mostrar _MENU_ registros',
@@ -24,25 +48,27 @@ export const DtOptionsDefault: Partial<DataTables.Settings> = {
             sortDescending: ': Activar para ordenar la columna de manera descendente'
         }
     },
-    dom: '<"row"<"col-6"l><"col-6"f>><"row"<"col-12"tr>><"row"<"col-3"i>><"row"<"col-6"B><"col-6"p>>',
+    dom: `${doom.header}${doom.body}${doom.footer}`,
     buttons: [
         {
-            extend: 'excelHtml5',
+            extend: ExtendedType.excelHtml5,
             text: 'Excel',
             messageTop: '',
             className: 'buttonsDownloadDT'
         },
         {
-            extend: 'csvHtml5',
+            extend: ExtendedType.csvHtml5,
             text: 'Cvs',
             messageTop: '',
             className: 'buttonsDownloadDT'
         },
         {
-            extend: 'pdfHtml5',
+            extend: ExtendedType.pdfHtml5,
             text: 'Pdf',
             messageTop: '',
             className: 'buttonsDownloadDT'
         }
-    ]
+    ],
+    destroy: true,
+    autoWidth: true
 };

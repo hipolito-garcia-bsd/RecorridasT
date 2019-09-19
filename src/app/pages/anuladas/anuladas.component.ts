@@ -21,6 +21,7 @@ import Swal from 'sweetalert2';
 import { NotificationService } from 'src/app/shared/services/notification/notification.service';
 import { typeNotification } from 'src/app/shared/models/notification.model';
 import { ResponseGeneric } from 'src/app/shared/models/generic.model';
+import { ExtendedType } from 'src/app/shared/models/pages/tools/tools.model';
 
 
 @Component({
@@ -139,6 +140,7 @@ export class AnuladasComponent implements OnInit, OnDestroy {
       })
     ).subscribe(sb => {
       this.cargarDTItems = sb;
+      this.tools.convertirDataTable('#tblAlertas', this.dtOptions);
     });
   }
 
@@ -149,21 +151,22 @@ export class AnuladasComponent implements OnInit, OnDestroy {
   }
 
   private getdtOptions(messageTop: string): any {
-    return this.tools.getOptions({
+    // return this.tools.getOptions(
+    return {
       buttons: [
         {
-          extend: 'excelHtml5',
+          extend: this.tools.isIeOrEdge ? ExtendedType.excel : ExtendedType.excelHtml5,
           text: 'Excel',
           messageTop,
           className: 'buttonsDownloadDT'
         },
         {
-          extend: 'pdfHtml5',
+          extend: this.tools.isIeOrEdge ? ExtendedType.pdf : ExtendedType.pdfHtml5,
           text: 'Pdf',
           messageTop,
           className: 'buttonsDownloadDT pb-11'
         },
       ]
-    });
+    };
   }
 }

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { UserInfo } from 'src/app/shared/models/pages/user/user.model';
 import { UserService } from 'src/app/shared/services/user/user.service';
-
-
-declare const $: any;
+import * as $ from 'jquery';
 
 // Metadata
 export interface RouteInfo {
@@ -78,7 +76,7 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userInfo = this.userService.getUserInfoData();
+        this.userInfo = this.userService.getUserInfoData;
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
             const elemSidebar = document.querySelector('.sidebar .sidebar-wrapper') as HTMLElement;

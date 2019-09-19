@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, UrlSerializer } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // ########################################################### //
@@ -27,14 +27,19 @@ import { APP_BASE_HREF } from '@angular/common';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { PipesModule } from './shared/pipes/pipes.module';
 import { DataTablesModule } from 'angular-datatables';
+// import { UserService } from './shared/services/user/user.service';
+import { AppConfigService } from './shared/services/appConfig/app-config.service';
 import { UserService } from './shared/services/user/user.service';
+import { LowerCaseUrlSerializerService } from './shared/services/LowerCaseUrlSerializer/lower-case-url-serializer.service';
 
 export function getBaseHref(): string {
   return window.location.pathname;
 }
 
-export function getInfoUserInit(user: UserService) {
-  return () => user.load();
+export function getLoadAppConfig(appConfigService: AppConfigService, user: UserService) {
+  return () => appConfigService.loadAppConfig().then(data => {
+    return user.load(data);
+  });
 }
 
 @NgModule({
@@ -70,8 +75,14 @@ export function getInfoUserInit(user: UserService) {
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: APP_BASE_HREF, useFactory: getBaseHref },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    AppConfigService,
+    { provide: APP_INITIALIZER, useFactory: getLoadAppConfig, deps: [AppConfigService, UserService], multi: true },
     UserService,
-    { provide: APP_INITIALIZER, useFactory: getInfoUserInit, deps: [UserService], multi: true }
+    // { provide: APP_INITIALIZER, useFactory: getInfoUserInit, deps: [UserService], multi: true }
+    {
+      provide: UrlSerializer,
+      useClass: LowerCaseUrlSerializerService
+    }
   ],
   bootstrap: [AppComponent]
 })

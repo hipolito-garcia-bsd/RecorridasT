@@ -4,7 +4,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { TableData } from 'src/app/shared/md/md-table/md-table.component';
 import { graphic } from 'echarts';
 
-declare const $: any;
 declare const require: any;
 
 

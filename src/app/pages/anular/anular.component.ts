@@ -21,6 +21,7 @@ import { ResponseGeneric } from 'src/app/shared/models/generic.model';
 // UserInfo
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { UserInfo } from 'src/app/shared/models/pages/user/user.model';
+import { ExtendedType } from 'src/app/shared/models/pages/tools/tools.model';
 
 @Component({
   selector: 'app-anular',
@@ -53,7 +54,7 @@ export class AnularComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userInfo = this.userService.getUserInfoData();
+    this.userInfo = this.userService.getUserInfoData;
     this.buildForm();
     this.callEndpointsInit();
   }
@@ -119,7 +120,7 @@ export class AnularComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.tools.resetDataTable('#tblAlertas');
+    // this.tools.resetDataTable('#tblAlertas');
     const lineaValue = this.getControl('inputLinea').value;
     const fechaValue = moment(this.getControl('inputFecha').value, 'YYYY-MM-DD').format('YYYY-MM-DD');
     // moment.utc(moment(this.getControl('inputFecha').value, 'DD/MM/YYYY')).format();
@@ -144,7 +145,7 @@ export class AnularComponent implements OnInit, OnDestroy {
       })
     ).subscribe(sb => {
       this.cargarDTAItems = sb;
-      // this.tools.convertirDataTable('#tblAlertas');
+      this.tools.convertirDataTable('#tblAlertas', this.dtOptions);
     }, (err) => {
       this.toastr.showToastr('Hubo un problema al cargar datos', 'Error', {
         type: typeNotification.error
@@ -218,10 +219,11 @@ export class AnularComponent implements OnInit, OnDestroy {
   }
 
   private getdtOptions(messageTop: string): any {
-    return this.tools.getOptions({
+    // return this.tools.getOptions(
+    return {
       buttons: [
         {
-          extend: 'excelHtml5',
+          extend: this.tools.isIeOrEdge ? ExtendedType.excel : ExtendedType.excelHtml5,
           text: 'Excel',
           messageTop,
           exportOptions: {
@@ -230,7 +232,7 @@ export class AnularComponent implements OnInit, OnDestroy {
           className: 'buttonsDownloadDT'
         },
         {
-          extend: 'pdfHtml5',
+          extend: this.tools.isIeOrEdge ? ExtendedType.pdf : ExtendedType.pdfHtml5,
           text: 'Pdf',
           messageTop,
           exportOptions: {
@@ -239,6 +241,6 @@ export class AnularComponent implements OnInit, OnDestroy {
           className: 'buttonsDownloadDT'
         },
       ]
-    });
+    };
   }
 }

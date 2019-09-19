@@ -12,7 +12,7 @@
                             <form #fromDirective="ngForm" [formGroup]="cargarFormGroup">
                                 <ng-template matStepLabel>Datos Generales (Detección)</ng-template>
                                 <div class="d-flex flex-row row">
-                                    <div class="d-flex flex-column col-4 p-2">
+                                    <div class="d-flex flex-column col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 p-2">
                                         <label>Fecha</label>
                                         <div class="d-flex">
                                             <input #inputDate [id]="'inputDate'" name="inputDate"
@@ -37,7 +37,7 @@
                                             </div> -->
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column col-4 p-2">
+                                    <div class="d-flex flex-column col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-2">
                                         <label>Hora Inicio</label>
                                         <div class="d-flex">
                                             <select #inputStartTime [id]="'inputStartTime'" name="inputStartTime"
@@ -76,7 +76,7 @@
                                             </ngx-material-timepicker>
                                         </div> -->
                                     </div>
-                                    <div class="d-flex flex-column col-4 p-2">
+                                    <div class="d-flex flex-column col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-2">
                                         <label>Hora Fin</label>
                                         <div class="d-flex">
                                             <select #inputEndTime [id]="'inputEndTime'" name="inputEndTime"
@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row row">
-                                    <div class="d-flex flex-column col-6 p-2">
+                                    <div class="d-flex flex-column col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2">
                                         <label>Turno</label>
                                         <div class="d-flex">
                                             <select #inputTurn [id]="'inputTurn'" name="inputTurn"
@@ -135,7 +135,7 @@
                                             {{getError('inputTurn', cargarFormGroup )}}
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column col-6 p-2">
+                                    <div class="d-flex flex-column col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2">
                                         <label>Macro Area</label>
                                         <div class="d-flex">
                                             <select #macroArea [id]="'macroArea'" name="inputFrameArea"
@@ -158,7 +158,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row row">
-                                    <div class="d-flex flex-column col-6 p-2">
+                                    <div class="d-flex flex-column col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2">
                                         <label>Area</label>
                                         <div class="d-flex">
                                             <select #inputArea [id]="'inputArea'" name="inputArea"
@@ -180,7 +180,7 @@
                                             {{getError('inputArea', cargarFormGroup )}}
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column col-6 p-2">
+                                    <div class="d-flex flex-column col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2">
                                         <label>Cliente</label>
                                         <div class="d-flex">
                                             <select #inputClient [id]="'inputClient'" name="inputClient"
@@ -253,10 +253,10 @@
                         <mat-step>
                             <ng-template matStepLabel>Datos Generales</ng-template>
                             <div class="d-flex flex-row row">
-                                <div class="d-flex flex-column col p-2">
+                                <div class="d-flex flex-column col">
                                     <div class="table-responsive">
                                         <table id="tblAlertas" cellpadding="1" cellspacing="1"
-                                            class="table table-bordered table-striped">
+                                            class="table table-bordered table-striped" style="width: 98% !important">
                                             <thead>
                                                 <tr>
                                                     <!-- <th style="width: 5%;">#</th> -->
