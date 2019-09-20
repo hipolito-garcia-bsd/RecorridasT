@@ -66,7 +66,6 @@ export class ToolsService {
   }
 
   resetDataTable(selector: string) {
-    debugger
     const dt = $(selector).DataTable();
     if (dt) {
       dt.clear();

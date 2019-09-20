@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatButtonModule,
-  MatButtonToggleModule,
   MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
-  MatSelectModule,
   MatStepperModule,
   MatDatepickerModule,
   MatFormFieldModule,
@@ -29,7 +27,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
   ],
   exports: [
     MatButtonModule,
-    MatButtonToggleModule,
     MatStepperModule,
     MatDatepickerModule,
     MatIconModule,
@@ -38,7 +35,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    MatSelectModule,
     AngularFontAwesomeModule,
     MatFormFieldModule,
     NgxMaterialTimepickerModule,

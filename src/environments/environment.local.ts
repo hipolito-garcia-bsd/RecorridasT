@@ -4,9 +4,6 @@
 
 export const environment = {
   production: false,
-  //  URL_SER_INDICADORES: 'http://localhost:54079/Indicadores/api/',
-  URL_SER_INDICADORES: 'http://ap.bsdenterprise.com:8095/apimonitor/Indicadores/api/',
-  URL_SER_GENERAL: 'http://ap.bsdenterprise.com:8095/apimonitor/api/',
   url: 'http://localhost:54079'
 };
 

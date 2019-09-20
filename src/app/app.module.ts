@@ -78,7 +78,6 @@ export function getLoadAppConfig(appConfigService: AppConfigService, user: UserS
     AppConfigService,
     { provide: APP_INITIALIZER, useFactory: getLoadAppConfig, deps: [AppConfigService, UserService], multi: true },
     UserService,
-    // { provide: APP_INITIALIZER, useFactory: getInfoUserInit, deps: [UserService], multi: true }
     {
       provide: UrlSerializer,
       useClass: LowerCaseUrlSerializerService

@@ -14,9 +14,9 @@ export const enum ExtendedType {
 }
 
 const doom = {
-    header: '<"row"<"col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12"l><"col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12"f>>',
+    header: '<"container-fluid doomDT"<"row"<"col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12"l><"col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12"f>>',
     body: '<"row"<"col-12"tr>>',
-    footer: '<"row"<"col-3"i>><"row"<"col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"B><"col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"p>>'
+    footer: '<"row"<"col-3"i>><"row"<"col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"B><"col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"p>>>'
 };
 
 export const DtOptionsDefault: any = {
@@ -70,5 +70,5 @@ export const DtOptionsDefault: any = {
         }
     ],
     destroy: true,
-    autoWidth: true
+    autoWidth: false
 };
