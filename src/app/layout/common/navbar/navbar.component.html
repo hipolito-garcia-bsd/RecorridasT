@@ -44,7 +44,7 @@
                             <ng-template #elseTumbnail>
                                 <!-- <img src="data:image/png;base64,{{userInfo.tumbnail}}"> -->
                                 <img style="width: 35px; height: 35px; line-height: 24px; border-radius: 20px;color: #b9b9b9;"
-                                    src="data:image/png;base64,{{userInfo.tumbnail}}"
+                                    [src]="userInfo.tumbnail"
                                     onerror="this.src='../../../../assets/img/user-circle-solid.svg';this.onerror='';">
                             </ng-template>
                         </a>

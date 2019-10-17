@@ -51,6 +51,6 @@ export class AnularService {
 
   putGuardarAnular(model: Array<AnularSave>): Observable<ResponseGeneric> {
     const url = `${this.putGuardarAnularUrl}`;
-    return this.http.put<ResponseGeneric>(url, model, this.httpOptions);
+    return this.http.post<ResponseGeneric>(url, model, this.httpOptions);
   }
 }

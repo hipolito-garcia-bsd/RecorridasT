@@ -31,6 +31,10 @@ export class AppConfigService {
       });
   }
 
+  public setAppConfig(appConfg: any) {
+    this.appConfig = appConfg;
+  }
+
   get apiBaseUrl() {
     if (!this.appConfig) {
       // return '';

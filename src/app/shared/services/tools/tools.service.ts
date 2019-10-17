@@ -13,6 +13,7 @@ import 'datatables.net-buttons-bs4';
 
 import * as $ from 'jquery';
 import { DtOptionsDefault } from '../../models/pages/tools/tools.model';
+import { Subject } from 'rxjs';
 // declare let $: any;
 // Increment for index array
 
@@ -20,6 +21,7 @@ import { DtOptionsDefault } from '../../models/pages/tools/tools.model';
   providedIn: 'root'
 })
 export class ToolsService {
+  public dtC: Subject<any> = new Subject<any>();
 
   constructor() { }
 
@@ -33,6 +35,7 @@ export class ToolsService {
     setTimeout(() => {
       const mergeOptions = Object.assign({}, DtOptionsDefault, customOptions);
       $(selector).DataTable(mergeOptions);
+      this.dtC.next();
       // $(selector).DataTable({
       //   lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
       //   language: {
@@ -66,7 +69,6 @@ export class ToolsService {
   }
 
   resetDataTable(selector: string) {
-    debugger
     const dt = $(selector).DataTable();
     if (dt) {
       dt.clear();

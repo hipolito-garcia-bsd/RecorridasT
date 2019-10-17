@@ -102,7 +102,7 @@ export class CargarSaveModel {
     cliente: string;
     listado: string;
     verificador: string;
-    list: Array<{ filters: Array<CargarFilters> }>;
+    list: Array<{ quantity: number, filters: Array<CargarFilters> }>;
 
     constructor(model: CargarSaveModel) {
         this.username = model.username;

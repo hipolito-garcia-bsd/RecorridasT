@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, AbstractControl, NgForm } from '@angular/forms';
-import { MatTableDataSource, MatHorizontalStepper, MatStepper } from '@angular/material';
-import { Subscription, forkJoin } from 'rxjs';
+import { MatTableDataSource, MatHorizontalStepper, MatStepper, MatSelect } from '@angular/material';
+import { Subscription, forkJoin, observable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // SweetAlert 2
 import Swal from 'sweetalert2';
@@ -65,11 +65,13 @@ export class CargarComponent implements OnInit, OnDestroy {
   public ObsListado: Subscription;
   public ObsRecOpTipR: Subscription;
   public breakpoint: Subscription;
+  private subjectTipoRecorridas: Subscription;
   // DATA TABLE
   public cargarDTA: Array<CargarDT> = [];
   public dataSourceDG: MatTableDataSource<CargarDT> = null;
   public dtSelected: Array<[number, CargarDTSelected]> = []; // Index row | model
   public dtOptions: any = {};
+  private dtSelectsRipoRecorrida: QueryList<ElementRef>;
   // VIEW CHILDS
   @ViewChild('inputArea', { static: true }) private childArea: ElementRef;
   @ViewChild('inputList', { static: true }) private childListado: ElementRef;
@@ -77,6 +79,11 @@ export class CargarComponent implements OnInit, OnDestroy {
   @ViewChild('inputClient', { static: true }) private childClient: ElementRef;
   @ViewChild('stepper', { static: true }) private stepper: MatStepper;
   @ViewChild('fromDirective', { static: true }) private formDirective: NgForm;
+  @ViewChildren('tipoRecorridas', { read: ElementRef }) set content(content: QueryList<ElementRef>) {
+    if (content) {
+      this.dtSelectsRipoRecorrida = content;
+    }
+  }
   //#endregion
 
   constructor(
@@ -92,6 +99,12 @@ export class CargarComponent implements OnInit, OnDestroy {
       Breakpoints.Small
     ]).subscribe(sb => {
       this.smallScreen = sb.matches;
+    });
+    this.subjectTipoRecorridas = this.tools.dtC.subscribe(sb => {
+      this.dtSelectsRipoRecorrida.forEach(fe => {
+        fe.nativeElement.value = '1';
+        fe.nativeElement.dispatchEvent(new Event('change'));
+      });
     });
   }
 
@@ -149,7 +162,7 @@ export class CargarComponent implements OnInit, OnDestroy {
       inputChecker: ['', [Validators.required]]
     });
     this.cargarDTFormGroup = this.formBuilder.group({
-      c: this.formBuilder.array([])
+      itemsDTFG: this.formBuilder.array([])
     });
   }
 
@@ -252,7 +265,7 @@ export class CargarComponent implements OnInit, OnDestroy {
 
         for (const obj of sb.recorridaOp.data) {
           const key = Object.keys(obj)[0];
-          this.cargarDTA.push(new CargarDT(obj[key], obj.linea_key, obj.tiporecorrida_key, null));
+          this.cargarDTA.push(new CargarDT(obj[key], obj.tiporecorrida_key, obj.linea_key, null));
         }
 
         this.tools.convertirDataTable('#tblAlertas', this.dtOptions);
@@ -267,7 +280,6 @@ export class CargarComponent implements OnInit, OnDestroy {
   public dGCheck(item: CargarDT, index: number, event: Event, value: boolean) {
     // const identifier = event.source._elementRef.nativeElement.dataset.identifier;
     // const rowIndex = this.dataSourceDG.filteredData.indexOf(item);
-
     const findIndexRow = this.dtSelected.findIndex(fi => fi[0] === index);
 
     if (findIndexRow === -1 && value) {
@@ -363,6 +375,7 @@ export class CargarComponent implements OnInit, OnDestroy {
     const formData = this.cargarFormGroup.value;
     // const finalModel = Object({ ...formData, ...dataDT });
     const fechaMx = moment.utc(moment(formData.inputDate, 'DD/MM/YYYY'));
+
     const finalModel = new CargarSaveModel({
       username: '',
       fecha: fechaMx.format(),
@@ -372,7 +385,7 @@ export class CargarComponent implements OnInit, OnDestroy {
       horaFin: formData.inputEndTime,
       turno: formData.inputTurn,
       area: formData.inputArea,
-      cliente: formData.inputArea,
+      cliente: formData.inputClient,
       listado: formData.inputList,
       verificador: formData.inputChecker,
       list: []
@@ -381,6 +394,7 @@ export class CargarComponent implements OnInit, OnDestroy {
     for (const item of dataDT) {
       finalModel.list.push(
         {
+          quantity: item[1].cantidadHllazgos,
           filters: [
             { param: '@Linea', value: item[1].lineakey.toString() },
             { param: '@TipoRecorrido', value: item[1].tiporecorridakey.toString() }
@@ -394,7 +408,9 @@ export class CargarComponent implements OnInit, OnDestroy {
       if (sb.success) {
         Swal.fire({
           type: 'success',
-          title: 'Se guardo correctamente',
+          title: 'Las Recorridas han sido cargadas correctamente',
+          text: `El/Los Hallazgos/Eventos ${sb.data.join(',')} han sido generados con éxito.`,
+          // html: ``, // `${sb.data}`,
           focusConfirm: true,
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#34495e'
@@ -434,6 +450,7 @@ export class CargarComponent implements OnInit, OnDestroy {
       this.unsubscribe(this.htmac);
       this.unsubscribe(this.recorridaSave);
       this.unsubscribe(this.breakpoint);
+      this.unsubscribe(this.subjectTipoRecorridas);
     }
   }
 
@@ -479,5 +496,9 @@ export class CargarComponent implements OnInit, OnDestroy {
         // },
       ]
     };
+  }
+
+  private tempSwal(data: Array<any>): string {
+    return '';
   }
 }

@@ -36,10 +36,17 @@ export function getBaseHref(): string {
   return window.location.pathname;
 }
 
+declare var appConfigDefault: any;
+// export function getLoadAppConfig(appConfigService: AppConfigService, user: UserService) {
+//   const prueba = appConfigDefault;
+//   return () => appConfigService.loadAppConfig().then(data => {
+//     return user.load(data);
+//   });
+// }
+
 export function getLoadAppConfig(appConfigService: AppConfigService, user: UserService) {
-  return () => appConfigService.loadAppConfig().then(data => {
-    return user.load(data);
-  });
+  appConfigService.setAppConfig(appConfigDefault);
+  return () => user.load(appConfigDefault);
 }
 
 @NgModule({
